@@ -7,42 +7,47 @@ namespace DGeneration
 {
     public class BlockPoolManager : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> blockPool;
-        [SerializeField] private int lastBlockID;
+        [SerializeField] private List<BlockManager> blockPool;
+        [SerializeField] private int firstBlockID = 0;
+        [SerializeField] private int midBlockID = 1;
+        [SerializeField] private int lastBlockID = 2;
 
         private void Awake()
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                GameObject child = transform.GetChild(i).gameObject;
-                blockPool.Add(child);
+                BlockManager child = transform.GetChild(i).transform.GetComponent<BlockManager>();
+                if (!child.singleUse)
+                {
+                    blockPool.Add(child);
+                }
             }
         }
         private void Start()
         {
             PickBlockToSpawn();
         }
-        private void PickBlockToSpawn() // DOESNT WORK!!!!
+        private void PickBlockToSpawn()
         {
-            int randomID = Random.Range(0, blockPool.Count);
-            bool avaliable = blockPool[randomID].transform.GetComponent<BlockManager>().blockData.canBeUsed;
-
-            while (!avaliable)
+            GetRandomBlockID(firstBlockID, midBlockID, lastBlockID);
+            blockPool[firstBlockID].PlaceOnScene();
+        }
+        private void GetRandomBlockID(int first, int mid, int last)
+        {
+            midBlockID = first;
+            lastBlockID = mid;
+            firstBlockID = Random.Range(0, blockPool.Count);
+            while (firstBlockID == first || firstBlockID == mid || firstBlockID == last)
             {
-                randomID = Random.Range(0, blockPool.Count);
-                avaliable = blockPool[randomID].transform.GetComponent<BlockManager>().blockData.canBeUsed;
+                firstBlockID = Random.Range(0, blockPool.Count);
             }
-
-            blockPool[randomID].SetActive(true);
         }
         private void OnEnable()
         {
-            //ActionManager.OnTouchLevelEnd += PickBlockToSpawn;
             ActionManager.OnTouchLevelStart += PickBlockToSpawn;
         }
         private void OnDisable()
         {
-            //ActionManager.OnTouchLevelEnd -= PickBlockToSpawn;
             ActionManager.OnTouchLevelStart -= PickBlockToSpawn;
         }
     }

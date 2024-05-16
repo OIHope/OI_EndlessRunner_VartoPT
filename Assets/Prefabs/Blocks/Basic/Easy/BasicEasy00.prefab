@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2734037077029504645}
-  - component: {fileID: 2479182902274124866}
   - component: {fileID: 6635566679576120743}
   - component: {fileID: 3469777440753286899}
   - component: {fileID: 1613290097114012828}
@@ -37,22 +36,6 @@ Transform:
   - {fileID: 4888625874781753895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2479182902274124866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159458628551182048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4848c4ee4f7f1ec4790668e33ec956a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _executeOnAwake: 0
-  _executeOnce: 0
-  _executeOnUpdate: 1
-  speed: 25
 --- !u!54 &6635566679576120743
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -113,13 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dbefe541db59a45a9c0e53a625627f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockData:
-    enviroment: 0
-    difficulty: 0
-    spawnPosition: {x: 0, y: 0, z: 60}
-    speed: 0
-    justUsed: 0
-    canBeUsed: 0
+  enviroment: 0
+  difficulty: 0
+  spawnPosition: {x: 0, y: 0, z: 60}
+  speed: 0
+  inMove: 0
+  canMove: 0
+  singleUse: 0
 --- !u!1 &3377907456923964284
 GameObject:
   m_ObjectHideFlags: 0

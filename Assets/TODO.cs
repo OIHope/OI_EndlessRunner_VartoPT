@@ -68,8 +68,13 @@ DONE:
 
 16.05
 
-
-
+- base generator that pools blocks, and eneble\disable them
+- start blocks, thet get destroyed after entering levelEnd trigger
+- player basic input system
+- player move left\right
+- basic startMove function, that must be scaled in the future
+- basic jump that doesnt work as intended
+	the system of jump and slide must be reconsidered to work on coroutines but not on physics
 
 
 

@@ -10,6 +10,7 @@ public static class ActionManager
     public static Action ActivateSomeBlocks;
 
     //Player Related
+    public static Action<float> OnStartMoving;
     public static Action OnStepRight;
     public static Action OnStepLeft;
     public static Action OnJump;

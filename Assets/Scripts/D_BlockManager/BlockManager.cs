@@ -6,39 +6,73 @@ namespace DGeneration
 {
     public class BlockManager : MonoBehaviour
     {
-        public BlockData blockData = new BlockData();
+        public Enviroment enviroment;
+        public Difficulty difficulty;
+        public Vector3 spawnPosition;
+        [SerializeField] private float speed;
+        [SerializeField] private bool inMove;
+        [SerializeField] private bool canMove;
+        public bool singleUse;
 
         private void Awake()
         {
-            ReserBlock();
+            ActionManager.OnStartMoving += StartMove;
+            if (!singleUse)
+            {
+                ResetBlock();
+            }
+        }
+        private void Update()
+        {
+            if (inMove)
+            {
+                MoveBlock();
+            }
+        }
+        private void MoveBlock()
+        {
+            transform.position = new Vector3
+                (transform.position.x, 
+                transform.position.y, 
+                transform.position.z - (speed * Time.deltaTime));
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.tag == "TriggerStart")
+            if (singleUse && other.transform.tag == "TriggerDestroy")
+            {
+                Destroy(gameObject);
+            }
+            if (!singleUse && other.transform.tag == "TriggerStart")
             {
                 ActionManager.OnTouchLevelStart?.Invoke();
             }
-            if (other.transform.tag == "TriggerDestroy")
+            if (!singleUse && other.transform.tag == "TriggerDestroy")
             {
-                //ActionManager.OnTouchLevelEnd?.Invoke();
-                ReserBlock();
-                
+                ResetBlock();
             }
         }
-        private void ReserBlock()
+        private void StartMove(float moveSpeed)
         {
-            transform.position = blockData.spawnPosition;
+            inMove = true;
+            speed = moveSpeed;
+            ActionManager.OnStartMoving -= StartMove;
+        }
+        public void PlaceOnScene()
+        {
+            gameObject.SetActive(true);
+        }
+        private void ResetBlock()
+        {
+            transform.position = spawnPosition;
             gameObject.SetActive(false);
         }
         private void OnEnable()
         {
-            blockData.currentlyUsed = true;
-            blockData.canBeUsed = false;
+            inMove = true;
         }
         private void OnDisable()
         {
-            blockData.currentlyUsed = false;
-            blockData.canBeUsed = true;
+            inMove = false;
         }
     }
 }
