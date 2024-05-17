@@ -41,10 +41,13 @@ mechanics:
 
 - game loop
 	run for the best score
-		score gets on coins
+		score sets on how long you're running
 	if you hit the obstacle you have -1 life restart prompt
 		when hit the obstacle - it destroys, so you cal run further
 		if fall in the pit - level moves forvard to skip the pit
+	you collect food to keep running
+		if foodBar is empty you loose -1Life
+		if continue - food bar fills half way
 
 player:
 
@@ -73,6 +76,11 @@ DONE:
 	on hit level stops and can be reset by move input
 	on hit the obstacle deactivates and resets on block reapear
 - each block now has its own obstacle list that controls obstacle state reset
+p2
+- added food system
+	now player need to collect food to keep going
+	if food = 0 - player dies (well, just stops for now)
+- collectabl food now triggers action, such a good system!
 
 
 16.05

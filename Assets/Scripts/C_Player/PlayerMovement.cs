@@ -29,7 +29,7 @@ namespace CPlayer
 
             
         }
-        private void Update()
+        private void FixedUpdate()
         {
             transform.position = Vector3.Lerp(transform.position, playerPos, 7f * Time.deltaTime);
         }
@@ -86,6 +86,7 @@ namespace CPlayer
             if (!isMoving)
             {
                 ActionManager.OnToggleMoving?.Invoke(moveSpeed, true);
+                ActionManager.OnStarving += StopMoving;
                 ActionManager.OnHitObstacle += StopMoving;
                 isMoving = true;
             }
@@ -95,6 +96,7 @@ namespace CPlayer
             if (isMoving)
             {
                 ActionManager.OnToggleMoving?.Invoke(0f, false);
+                ActionManager.OnStarving -= StopMoving;
                 ActionManager.OnHitObstacle -= StopMoving;
                 isMoving = false;
             }

@@ -17,9 +17,16 @@ namespace DGeneration
 
         [SerializeField] private GameObject obstacleFolder;
         [SerializeField] private List<GameObject> obstaclePool;
+        [SerializeField] private GameObject collectableFolder;
+        [SerializeField] private List<GameObject> collectablePool;
 
         private void Awake()
         {
+            for (int i = 0; i < collectableFolder.transform.childCount; i++)
+            {
+                GameObject child = collectableFolder.transform.GetChild(i).gameObject;
+                collectablePool.Add(child);
+            }
             for (int i = 0; i < obstacleFolder.transform.childCount; i++)
             {
                 GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
@@ -74,6 +81,10 @@ namespace DGeneration
         {
             transform.position = spawnPosition;
             foreach (GameObject obstacle in obstaclePool)
+            {
+                obstacle.SetActive(true);
+            }
+            foreach (GameObject obstacle in collectablePool)
             {
                 obstacle.SetActive(true);
             }

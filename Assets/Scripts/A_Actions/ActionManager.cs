@@ -12,6 +12,8 @@ public static class ActionManager
     //Player Related
     public static Action<float, bool> OnToggleMoving;
     public static Action OnHitObstacle;
+    public static Action OnHitFood;
+    public static Action OnStarving;
 
     //Collectables
     public static Action<int> OnCollectCoin;
