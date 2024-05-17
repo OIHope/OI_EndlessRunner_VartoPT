@@ -14,11 +14,6 @@ namespace CPlayer
 
         private Coroutine foodDecreaseCoroutine;
 
-        private void Awake()
-        {
-            ActionManager.OnHitFood += AddFoodValue;
-            ActionManager.OnToggleMoving += TurnOnFoodDecrease;
-        }
         private void Update()
         {
             ManageFoodValues();
@@ -26,24 +21,25 @@ namespace CPlayer
         private void AddFoodValue()
         {
             foodAmount += foodValue;
+            ActionManager.UIFoodValueChanged?.Invoke(foodAmount);
         }
         private void ManageFoodValues()
         {
             if (foodAmount > maxFood)
             {
-                foodAmount = maxFood;
+                foodAmount = (int)(maxFood * 0.3f);
+                ActionManager.OnFillFoodBar?.Invoke();
             }
             if (foodAmount <= 0)
             {
                 foodAmount = 0;
                 ActionManager.OnStarving?.Invoke();
-                ActionManager.OnToggleMoving += ResetFood;
             }
         }
-        private void ResetFood(float i, bool j)
+        private void ResetFood()
         {
-            foodAmount = maxFood/2;
-            ActionManager.OnToggleMoving -= ResetFood;
+            foodAmount = (int)(maxFood * 0.3f);
+            ActionManager.UIFoodValueChanged?.Invoke(foodAmount);
         }
         private void TurnOnFoodDecrease(float i, bool isMoving)
         {
@@ -62,15 +58,20 @@ namespace CPlayer
             {
                 yield return new WaitForSeconds(foodDecreaseSpeed);
                 foodAmount--;
+                ActionManager.UIFoodValueChanged?.Invoke(foodAmount);
             }
         }
         private void OnEnable()
         {
-            
+            ActionManager.OnLoseHeart += ResetFood;
+            ActionManager.OnHitFood += AddFoodValue;
+            ActionManager.OnToggleMoving += TurnOnFoodDecrease;
         }
         private void OnDisable()
         {
-            
+            ActionManager.OnLoseHeart -= ResetFood;
+            ActionManager.OnHitFood -= AddFoodValue;
+            ActionManager.OnToggleMoving -= TurnOnFoodDecrease;
         }
     }
 }

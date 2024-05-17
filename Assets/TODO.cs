@@ -81,6 +81,12 @@ p2
 	now player need to collect food to keep going
 	if food = 0 - player dies (well, just stops for now)
 - collectabl food now triggers action, such a good system!
+p3
+- added life system
+	player now can lose lifes (maybe worth to change to hearts...)
+- added basic UI just to see values
+- added small delay after you hit the wall
+- changed slife valie foum -2f to -1f, now player collects all ground collectables while sliding
 
 
 16.05

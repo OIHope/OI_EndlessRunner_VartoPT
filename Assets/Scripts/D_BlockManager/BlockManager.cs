@@ -19,9 +19,10 @@ namespace DGeneration
         [SerializeField] private List<GameObject> obstaclePool;
         [SerializeField] private GameObject collectableFolder;
         [SerializeField] private List<GameObject> collectablePool;
-
         private void Awake()
         {
+            ActionManager.OnToggleMoving += ToggleMove;
+
             for (int i = 0; i < collectableFolder.transform.childCount; i++)
             {
                 GameObject child = collectableFolder.transform.GetChild(i).gameObject;
@@ -32,7 +33,6 @@ namespace DGeneration
                 GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
                 obstaclePool.Add(child);
             }
-            ActionManager.OnToggleMoving += ToggleMove;
             if (!singleUse)
             {
                 ResetBlock();
@@ -71,7 +71,6 @@ namespace DGeneration
         {
             inMove = willMove;
             speed = moveSpeed;
-            
         }
         public void PlaceOnScene()
         {

@@ -18,16 +18,12 @@ namespace CPlayer
 
         private Coroutine jumpCoroutine;
         private Coroutine slideCoroutine;
+        private Coroutine tempRemoveControl;
+
 
         private void Awake()
         {
             inputSystem = new InputSystem();
-            inputSystem.PlayerMovement.Jump.performed += JumpAction;
-            inputSystem.PlayerMovement.Left.performed += MoveLeft;
-            inputSystem.PlayerMovement.Right.performed += MoveRight;
-            inputSystem.PlayerMovement.Slide.performed += Slide;
-
-            
         }
         private void FixedUpdate()
         {
@@ -35,7 +31,11 @@ namespace CPlayer
         }
         private void MoveLeft(InputAction.CallbackContext context)
         {
-            StartMoving();
+            if (!isMoving)
+            {
+                StartMoving();
+                return;
+            }
 
             if (posID != 0)
             {
@@ -45,7 +45,11 @@ namespace CPlayer
         }
         private void MoveRight(InputAction.CallbackContext context)
         {
-            StartMoving();
+            if (!isMoving)
+            {
+                StartMoving();
+                return;
+            }
 
             if (posID != 2)
             {
@@ -55,8 +59,12 @@ namespace CPlayer
         }
         private void Slide(InputAction.CallbackContext context)
         {
-            StartMoving();
-            
+            if (!isMoving)
+            {
+                StartMoving();
+                return;
+            }
+
             if (!onSlide)
             {
                 slideCoroutine = StartCoroutine(SlideProcess());
@@ -69,7 +77,11 @@ namespace CPlayer
         }
         private void JumpAction(InputAction.CallbackContext context)
         {
-            StartMoving();
+            if (!isMoving)
+            {
+                StartMoving();
+                return;
+            }
 
             if (!onJump)
             {
@@ -83,23 +95,25 @@ namespace CPlayer
         }
         private void StartMoving()
         {
-            if (!isMoving)
-            {
-                ActionManager.OnToggleMoving?.Invoke(moveSpeed, true);
-                ActionManager.OnStarving += StopMoving;
-                ActionManager.OnHitObstacle += StopMoving;
-                isMoving = true;
-            }
+            ActionManager.OnToggleMoving?.Invoke(moveSpeed, true);
+
+            ActionManager.OnStarving += StopMoving;
+            ActionManager.OnHitObstacle += StopMoving;
+            ActionManager.OnHitObstacle += TempRemoveControl;
+            isMoving = true;
         }
         private void StopMoving()
         {
-            if (isMoving)
-            {
-                ActionManager.OnToggleMoving?.Invoke(0f, false);
-                ActionManager.OnStarving -= StopMoving;
-                ActionManager.OnHitObstacle -= StopMoving;
-                isMoving = false;
-            }
+            ActionManager.OnToggleMoving?.Invoke(0f, false);
+
+            ActionManager.OnStarving -= StopMoving;
+            ActionManager.OnHitObstacle -= StopMoving;
+            ActionManager.OnHitObstacle -= TempRemoveControl;
+            isMoving = false;
+        }
+        private void TempRemoveControl()
+        {
+            tempRemoveControl = StartCoroutine(OnHitRemoveControl());
         }
         private IEnumerator JumpProcess()
         {
@@ -111,19 +125,33 @@ namespace CPlayer
         }
         private IEnumerator SlideProcess()
         {
-            playerPos.y = -2f;
+            playerPos.y = -1f;
             onSlide = true;
             yield return new WaitForSeconds(jumpDuration);
             playerPos.y = 0f;
             onSlide = false;
         }
+        private IEnumerator OnHitRemoveControl()
+        {
+            inputSystem.Disable();
+            yield return new WaitForSeconds(1f);
+            inputSystem.Enable();
+        }
         private void OnEnable()
         {
             inputSystem.Enable();
+            inputSystem.PlayerMovement.Jump.performed += JumpAction;
+            inputSystem.PlayerMovement.Left.performed += MoveLeft;
+            inputSystem.PlayerMovement.Right.performed += MoveRight;
+            inputSystem.PlayerMovement.Slide.performed += Slide;
         }
         private void OnDisable()
         {
             inputSystem.Disable();
+            inputSystem.PlayerMovement.Jump.performed -= JumpAction;
+            inputSystem.PlayerMovement.Left.performed -= MoveLeft;
+            inputSystem.PlayerMovement.Right.performed -= MoveRight;
+            inputSystem.PlayerMovement.Slide.performed -= Slide;
         }
     }
 }
