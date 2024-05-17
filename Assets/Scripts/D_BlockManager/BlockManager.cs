@@ -54,15 +54,11 @@ namespace DGeneration
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (singleUse && other.transform.tag == "TriggerDestroy")
-            {
-                Destroy(gameObject);
-            }
-            if (!singleUse && other.transform.tag == "TriggerStart")
+            if (other.transform.tag == "TriggerStart")
             {
                 ActionManager.OnTouchLevelStart?.Invoke();
             }
-            if (!singleUse && other.transform.tag == "TriggerDestroy")
+            if (other.transform.tag == "TriggerDestroy")
             {
                 ResetBlock();
             }
@@ -96,6 +92,10 @@ namespace DGeneration
         private void OnDisable()
         {
             inMove = false;
+        }
+        private void OnDestroy()
+        {
+            ActionManager.OnToggleMoving -= ToggleMove;
         }
     }
 }

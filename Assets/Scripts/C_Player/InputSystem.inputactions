@@ -149,18 +149,18 @@
             "id": "c666a134-0f18-475d-b8d7-5007223fa038",
             "actions": [
                 {
-                    "name": "MenuEscape",
+                    "name": "SidePanel",
                     "type": "Button",
-                    "id": "6406615f-00ec-44b6-951c-158cb3498be9",
+                    "id": "8ea079fa-4291-4fd3-bacf-bb4c4f1a1850",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Enter",
+                    "name": "PausePanel",
                     "type": "Button",
-                    "id": "792f825c-2e9f-4a6d-880d-f12e7c1dd7a9",
+                    "id": "78ff4bf2-a270-4b78-b6fe-41dc9bbcba97",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -170,23 +170,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c93e3d22-e064-4131-aa8d-e32967bc6784",
-                    "path": "<Keyboard>/escape",
+                    "id": "e7300947-acb7-43d1-9542-dc098b263806",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MenuEscape",
+                    "action": "SidePanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "8d9c8ca9-80c2-488e-a0a6-0b7e4a411000",
-                    "path": "<Keyboard>/enter",
+                    "id": "a88b8cf0-10f1-48bb-9762-44636048930f",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Enter",
+                    "action": "PausePanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

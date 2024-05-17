@@ -11,7 +11,6 @@ namespace DGeneration
         [SerializeField] private int firstBlockID = 0;
         [SerializeField] private int midBlockID = 1;
         [SerializeField] private int lastBlockID = 2;
-
         private void Awake()
         {
             for (int i = 0; i < transform.childCount; i++)
@@ -22,10 +21,6 @@ namespace DGeneration
                     blockPool.Add(child);
                 }
             }
-        }
-        private void Start()
-        {
-            PickBlockToSpawn();
         }
         private void PickBlockToSpawn()
         {

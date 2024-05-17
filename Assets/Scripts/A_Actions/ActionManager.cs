@@ -27,8 +27,12 @@ public static class ActionManager
     public static Action OnFillFoodBar;
 
 
-    //UI
+    //UI SidePanel
     public static Action<int> UIFoodValueChanged;
     public static Action<int> UIHeartValueChanged;
     public static Action<string> UIGameStatusChanged;
+
+    //IU Input
+    public static Action UIToggleSidePanel;
+    public static Action UITogglePausePanel;
 }

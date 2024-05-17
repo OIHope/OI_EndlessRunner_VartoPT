@@ -87,6 +87,14 @@ p3
 - added basic UI just to see values
 - added small delay after you hit the wall
 - changed slife valie foum -2f to -1f, now player collects all ground collectables while sliding
+p4
+- added start ui panel
+- added pause ui panel placeholder
+- added gameOver screen
+- now can restart the scene
+- fixed block spawn problem after respawn
+	now spawn triggers by start blocks too
+
 
 
 16.05

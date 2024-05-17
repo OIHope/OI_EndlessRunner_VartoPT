@@ -39,9 +39,9 @@ namespace CPlayer
         {
             if (heartCount <= 0 && !deathIsTriggered)
             {
-                deathIsTriggered = true;
                 ActionManager.OnDeath?.Invoke();
                 ActionManager.UIGameStatusChanged?.Invoke("Game Over!");
+                deathIsTriggered = true;
             }
         }
         private void OnEnable()

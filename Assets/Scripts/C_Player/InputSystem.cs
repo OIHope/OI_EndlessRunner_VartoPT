@@ -172,18 +172,18 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             ""id"": ""c666a134-0f18-475d-b8d7-5007223fa038"",
             ""actions"": [
                 {
-                    ""name"": ""MenuEscape"",
+                    ""name"": ""SidePanel"",
                     ""type"": ""Button"",
-                    ""id"": ""6406615f-00ec-44b6-951c-158cb3498be9"",
+                    ""id"": ""8ea079fa-4291-4fd3-bacf-bb4c4f1a1850"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Enter"",
+                    ""name"": ""PausePanel"",
                     ""type"": ""Button"",
-                    ""id"": ""792f825c-2e9f-4a6d-880d-f12e7c1dd7a9"",
+                    ""id"": ""78ff4bf2-a270-4b78-b6fe-41dc9bbcba97"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -193,23 +193,23 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""c93e3d22-e064-4131-aa8d-e32967bc6784"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""id"": ""e7300947-acb7-43d1-9542-dc098b263806"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MenuEscape"",
+                    ""action"": ""SidePanel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8d9c8ca9-80c2-488e-a0a6-0b7e4a411000"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""id"": ""a88b8cf0-10f1-48bb-9762-44636048930f"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Enter"",
+                    ""action"": ""PausePanel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -226,8 +226,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_PlayerMovement_Right = m_PlayerMovement.FindAction("Right", throwIfNotFound: true);
         // UIControl
         m_UIControl = asset.FindActionMap("UIControl", throwIfNotFound: true);
-        m_UIControl_MenuEscape = m_UIControl.FindAction("MenuEscape", throwIfNotFound: true);
-        m_UIControl_Enter = m_UIControl.FindAction("Enter", throwIfNotFound: true);
+        m_UIControl_SidePanel = m_UIControl.FindAction("SidePanel", throwIfNotFound: true);
+        m_UIControl_PausePanel = m_UIControl.FindAction("PausePanel", throwIfNotFound: true);
     }
 
     ~@InputSystem()
@@ -365,14 +365,14 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     // UIControl
     private readonly InputActionMap m_UIControl;
     private List<IUIControlActions> m_UIControlActionsCallbackInterfaces = new List<IUIControlActions>();
-    private readonly InputAction m_UIControl_MenuEscape;
-    private readonly InputAction m_UIControl_Enter;
+    private readonly InputAction m_UIControl_SidePanel;
+    private readonly InputAction m_UIControl_PausePanel;
     public struct UIControlActions
     {
         private @InputSystem m_Wrapper;
         public UIControlActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MenuEscape => m_Wrapper.m_UIControl_MenuEscape;
-        public InputAction @Enter => m_Wrapper.m_UIControl_Enter;
+        public InputAction @SidePanel => m_Wrapper.m_UIControl_SidePanel;
+        public InputAction @PausePanel => m_Wrapper.m_UIControl_PausePanel;
         public InputActionMap Get() { return m_Wrapper.m_UIControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -382,22 +382,22 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIControlActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIControlActionsCallbackInterfaces.Add(instance);
-            @MenuEscape.started += instance.OnMenuEscape;
-            @MenuEscape.performed += instance.OnMenuEscape;
-            @MenuEscape.canceled += instance.OnMenuEscape;
-            @Enter.started += instance.OnEnter;
-            @Enter.performed += instance.OnEnter;
-            @Enter.canceled += instance.OnEnter;
+            @SidePanel.started += instance.OnSidePanel;
+            @SidePanel.performed += instance.OnSidePanel;
+            @SidePanel.canceled += instance.OnSidePanel;
+            @PausePanel.started += instance.OnPausePanel;
+            @PausePanel.performed += instance.OnPausePanel;
+            @PausePanel.canceled += instance.OnPausePanel;
         }
 
         private void UnregisterCallbacks(IUIControlActions instance)
         {
-            @MenuEscape.started -= instance.OnMenuEscape;
-            @MenuEscape.performed -= instance.OnMenuEscape;
-            @MenuEscape.canceled -= instance.OnMenuEscape;
-            @Enter.started -= instance.OnEnter;
-            @Enter.performed -= instance.OnEnter;
-            @Enter.canceled -= instance.OnEnter;
+            @SidePanel.started -= instance.OnSidePanel;
+            @SidePanel.performed -= instance.OnSidePanel;
+            @SidePanel.canceled -= instance.OnSidePanel;
+            @PausePanel.started -= instance.OnPausePanel;
+            @PausePanel.performed -= instance.OnPausePanel;
+            @PausePanel.canceled -= instance.OnPausePanel;
         }
 
         public void RemoveCallbacks(IUIControlActions instance)
@@ -424,7 +424,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     }
     public interface IUIControlActions
     {
-        void OnMenuEscape(InputAction.CallbackContext context);
-        void OnEnter(InputAction.CallbackContext context);
+        void OnSidePanel(InputAction.CallbackContext context);
+        void OnPausePanel(InputAction.CallbackContext context);
     }
 }

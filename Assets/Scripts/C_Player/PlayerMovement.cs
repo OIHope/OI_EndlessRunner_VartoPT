@@ -20,11 +20,11 @@ namespace CPlayer
         private Coroutine slideCoroutine;
         private Coroutine tempRemoveControl;
 
-
         private void Awake()
         {
-            inputSystem = new InputSystem();
+            inputSystem ??= new InputSystem();
         }
+
         private void FixedUpdate()
         {
             transform.position = Vector3.Lerp(transform.position, playerPos, 7f * Time.deltaTime);
@@ -133,25 +133,37 @@ namespace CPlayer
         }
         private IEnumerator OnHitRemoveControl()
         {
-            inputSystem.Disable();
+            PlayerContolDisable();
             yield return new WaitForSeconds(1f);
-            inputSystem.Enable();
+            PlayerContolEnable();
         }
-        private void OnEnable()
+        private void PlayerContolDisable()
         {
-            inputSystem.Enable();
+            inputSystem.PlayerMovement.Jump.performed -= JumpAction;
+            inputSystem.PlayerMovement.Left.performed -= MoveLeft;
+            inputSystem.PlayerMovement.Right.performed -= MoveRight;
+            inputSystem.PlayerMovement.Slide.performed -= Slide;
+        }
+        private void PlayerContolEnable()
+        {
             inputSystem.PlayerMovement.Jump.performed += JumpAction;
             inputSystem.PlayerMovement.Left.performed += MoveLeft;
             inputSystem.PlayerMovement.Right.performed += MoveRight;
             inputSystem.PlayerMovement.Slide.performed += Slide;
         }
+        private void OnEnable()
+        {
+            inputSystem.Enable();
+            PlayerContolEnable();
+        }
         private void OnDisable()
         {
             inputSystem.Disable();
-            inputSystem.PlayerMovement.Jump.performed -= JumpAction;
-            inputSystem.PlayerMovement.Left.performed -= MoveLeft;
-            inputSystem.PlayerMovement.Right.performed -= MoveRight;
-            inputSystem.PlayerMovement.Slide.performed -= Slide;
+            PlayerContolDisable();
+        }
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
         }
     }
 }
