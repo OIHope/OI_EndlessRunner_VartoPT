@@ -10,13 +10,8 @@ public static class ActionManager
     public static Action ActivateSomeBlocks;
 
     //Player Related
-    public static Action<float> OnStartMoving;
-    public static Action OnStepRight;
-    public static Action OnStepLeft;
-    public static Action OnJump;
-    public static Action OnSlide;
-    public static Action OnHitTheWall;
-    public static Action OnFallInPit;
+    public static Action<float, bool> OnToggleMoving;
+    public static Action OnHitObstacle;
 
     //Collectables
     public static Action<int> OnCollectCoin;

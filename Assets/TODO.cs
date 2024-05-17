@@ -1,7 +1,10 @@
 /*
 
 style - lowPoly(like mega LOWPOLY)
-enviroment - forest\cave\field (or just one, I'll see)
+enviroment:
+	forest
+	cave
+	field
 
 mechanics:
 
@@ -18,15 +21,12 @@ mechanics:
 	go left\right
 	jump
 	slide
-	through dinomyte
 
 - obstacles:
 	big 1 line wall
 	big 2 line wall
 	small 3 line wall down
 	small 3 line wall up
-	3 line pit
-	1 line breakable wall
 
 - collectables:
 	coins
@@ -48,7 +48,7 @@ mechanics:
 
 player:
 
-model:
+- model:
 	adventurer
 	it should be black&white, so can add custom colors
 	and maybe add some cloths and so on (if have time)
@@ -65,6 +65,15 @@ model:
 
 
 DONE:
+
+17.05
+
+- player now jump and slide +- properly, but need tweaking and some remake after cosmetics done
+- player can hit obstales
+	on hit level stops and can be reset by move input
+	on hit the obstacle deactivates and resets on block reapear
+- each block now has its own obstacle list that controls obstacle state reset
+
 
 16.05
 

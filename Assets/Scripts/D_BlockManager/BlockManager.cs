@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using BData;
+using System.Collections.Generic;
 
 namespace DGeneration
 {
@@ -14,9 +15,17 @@ namespace DGeneration
         [SerializeField] private bool canMove;
         public bool singleUse;
 
+        [SerializeField] private GameObject obstacleFolder;
+        [SerializeField] private List<GameObject> obstaclePool;
+
         private void Awake()
         {
-            ActionManager.OnStartMoving += StartMove;
+            for (int i = 0; i < obstacleFolder.transform.childCount; i++)
+            {
+                GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
+                obstaclePool.Add(child);
+            }
+            ActionManager.OnToggleMoving += ToggleMove;
             if (!singleUse)
             {
                 ResetBlock();
@@ -51,11 +60,11 @@ namespace DGeneration
                 ResetBlock();
             }
         }
-        private void StartMove(float moveSpeed)
+        private void ToggleMove(float moveSpeed, bool willMove)
         {
-            inMove = true;
+            inMove = willMove;
             speed = moveSpeed;
-            ActionManager.OnStartMoving -= StartMove;
+            
         }
         public void PlaceOnScene()
         {
@@ -64,6 +73,10 @@ namespace DGeneration
         private void ResetBlock()
         {
             transform.position = spawnPosition;
+            foreach (GameObject obstacle in obstaclePool)
+            {
+                obstacle.SetActive(true);
+            }
             gameObject.SetActive(false);
         }
         private void OnEnable()
