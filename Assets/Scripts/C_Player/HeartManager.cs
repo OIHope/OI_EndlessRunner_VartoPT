@@ -10,7 +10,7 @@ namespace CPlayer
         private int heartCount;
         private bool deathIsTriggered;
 
-        private void Awake()
+        private void Start()
         {
             ResetClass();
         }

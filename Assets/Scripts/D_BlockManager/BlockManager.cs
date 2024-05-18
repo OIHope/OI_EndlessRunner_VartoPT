@@ -12,6 +12,7 @@ namespace DGeneration
         [SerializeField] private float speed;
         [SerializeField] private bool inMove;
         [SerializeField] private bool canMove;
+        public bool canBeUsed;
         public bool singleUse;
 
         [SerializeField] private GameObject obstacleFolder;
@@ -93,11 +94,13 @@ namespace DGeneration
         }
         private void OnEnable()
         {
+            canBeUsed = false;
             inMove = true;
             ActionManager.StartNewGame += ResetClass;
         }
         private void OnDisable()
         {
+            canBeUsed = true;
             inMove = false;
             ActionManager.StartNewGame -= ResetClass;
         }

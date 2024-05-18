@@ -4,40 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using BData;
+using Unity.VisualScripting;
 
 namespace DGeneration
 {
     public class BlockPoolManager : MonoBehaviour
     {
-        [SerializeField] private Dictionary<Enviroment, List<BlockManager>> blockDictionary = new();
-        private List<BlockManager> blockPool = new();
-        [SerializeField] private int firstBlockID = 0;
-        [SerializeField] private int midBlockID = 1;
-        [SerializeField] private int lastBlockID = 2;
-        [Space]
-        [SerializeField] private int currentListID, listCount;
         [SerializeField] private int nextTypeStep = 10;
-        [SerializeField] private int currentTypeStep = 0;
+        private int currentTypeStep = 0;
+        private int currentListID, listCount;
+
+        private Dictionary<Enviroment, List<BlockManager>> blockDictionary = new();
+        private List<BlockManager> blockPool = new();
+        [SerializeField] private List<BlockManager> canUsePool = new();
+
         private void Awake()
         {
             ResetClass();
         }
         private void PickBlockToSpawn()
         {
-            GetRandomBlockID(firstBlockID, midBlockID, lastBlockID, (Enviroment)GetListID());
-            blockDictionary[(Enviroment)currentListID][firstBlockID].PlaceOnScene();
+            GetRandomBlockID((Enviroment)GetListID()).PlaceOnScene();
             currentTypeStep++;
         }
-        private void GetRandomBlockID(int first, int mid, int last, Enviroment ListID)
+        private BlockManager GetRandomBlockID(Enviroment ListID)
         {
+            canUsePool.Clear();
             var poolList = blockDictionary[ListID];
-            midBlockID = first;
-            lastBlockID = mid;
-            firstBlockID = Random.Range(0, poolList.Count);
-            while (firstBlockID == first || firstBlockID == mid || firstBlockID == last)
+            foreach (var block in poolList)
             {
-                firstBlockID = Random.Range(0, poolList.Count);
+                if (block.canBeUsed)
+                    canUsePool.Add(block);
             }
+            return canUsePool[Random.Range(0, canUsePool.Count)];
         }
         private int GetListID()
         {
@@ -55,10 +54,14 @@ namespace DGeneration
             blockPool.Clear();
             for (int i = 0; i < transform.childCount; i++)
             {
-                BlockManager child = transform.GetChild(i).transform.GetComponent<BlockManager>();
-                if (!child.singleUse)
+                GameObject thisPool = transform.GetChild(i).gameObject;
+                for (int j = 0; j < thisPool.transform.childCount; j++)
                 {
-                    blockPool.Add(child);
+                    BlockManager child = thisPool.transform.GetChild(j).transform.GetComponent<BlockManager>();
+                    if (thisPool.transform.childCount != 0 && !child.singleUse)
+                    {
+                        blockPool.Add(child);
+                    }
                 }
             }
             var blockGroup = blockPool.GroupBy(block => block.enviroment);

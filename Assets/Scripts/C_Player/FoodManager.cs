@@ -13,7 +13,7 @@ namespace CPlayer
         [SerializeField] private float foodDecreaseSpeed = 5f;
 
         private Coroutine foodDecreaseCoroutine;
-        private void Awake()
+        private void Start()
         {
             ResetFood();
         }

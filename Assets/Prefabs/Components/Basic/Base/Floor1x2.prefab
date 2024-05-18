@@ -75,14 +75,14 @@ MonoBehaviour:
   m_SharedTextures: []
   m_Positions:
   - {x: -30, y: 0.0001, z: 0}
-  - {x: -30, y: 0.0001, z: 10}
+  - {x: -30, y: 0.0001, z: 60}
   - {x: 30, y: 0.0001, z: 0}
-  - {x: 30, y: 0.0001, z: 10}
+  - {x: 30, y: 0.0001, z: 60}
   m_Textures0:
   - {x: -30, y: 0}
-  - {x: -30, y: 10}
+  - {x: -30, y: 60}
   - {x: 30, y: 0}
-  - {x: 30, y: 10}
+  - {x: 30, y: 60}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
@@ -99,11 +99,13 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 6474
+  m_VersionIndex: 6954
   m_IsSelectable: 1
   m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedEdges:
+  - a: 1
+    b: 3
+  m_SelectedVertices: 0100000003000000
 --- !u!114 &6544563059476414063
 MonoBehaviour:
   m_ObjectHideFlags: 0

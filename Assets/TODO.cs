@@ -60,11 +60,10 @@ player:
 	idle, ready to start running
 	run
 	jump
-	fall
 	slide
 	hit the wall while stand
 	hit the wall while slide
-	resurect
+	resurect ?
 
 UI:
 	- main menu
@@ -101,6 +100,11 @@ DONE:
 	but there's a bug, the you can restart if you hit move buttons right after gameover ui popup
 	somehow death don't trigger in time
 - fixed newGame start panel popup (in a bad way obviously)
+p2
+- block pool now can have separate containers for each enviroment, it's just for beter navigation
+- removed this fucking while loop as it crashed unity!
+	now it works based on sorting out those blocks that have (canBeUsed false)
+- tweaked a bit start trigger, but nothing happened, lol
 
 17.05
 
