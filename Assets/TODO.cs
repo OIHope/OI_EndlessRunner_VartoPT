@@ -105,6 +105,13 @@ p2
 - removed this fucking while loop as it crashed unity!
 	now it works based on sorting out those blocks that have (canBeUsed false)
 - tweaked a bit start trigger, but nothing happened, lol
+p3
+- add pause menu
+- implemented pause based on timeScale
+	put it on GameSpace container and hope it works only for it, but who knows
+- fixed ui input deactivate after gameover restart
+- fixed pause panel could show when startPanel is shown (in a VERY BAD WAY!!!)
+- pressing on Menu button should close app (if build)
 
 17.05
 
@@ -131,8 +138,6 @@ p4
 - now can restart the scene
 - fixed block spawn problem after respawn
 	now spawn triggers by start blocks too
-
-
 
 16.05
 

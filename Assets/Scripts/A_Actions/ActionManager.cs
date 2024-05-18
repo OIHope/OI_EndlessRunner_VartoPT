@@ -1,11 +1,10 @@
-using DGeneration;
 using System;
-using UnityEngine;
 
 public static class ActionManager
 {
     //GAMELOOP
     public static Action StartNewGame;
+    public static Action<bool> PauseGame;
 
     //Generator Manager
     public static Action OnTouchLevelEnd;

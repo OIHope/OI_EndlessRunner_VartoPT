@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,14 +12,11 @@ namespace FUI
         [SerializeField] private GameObject newGamePanel;
         [SerializeField] private GameObject gameOverPanel;
 
-        private void Awake()
-        {
-            ResetClass();
-        }
         private void OffNewGamePanel(float n, bool m)
         {
             if (!m) return;
             newGamePanel.SetActive(false);
+            inputSystem.UIControl.PausePanel.performed += TogglePausePanel;
             ActionManager.OnToggleMoving -= OffNewGamePanel;
         }
         private void ToggleSidePanel(InputAction.CallbackContext callback)
@@ -31,14 +26,21 @@ namespace FUI
         private void TogglePausePanel(InputAction.CallbackContext callback)
         {
             pausePanel.SetActive(!pausePanel.activeSelf);
+            if (pausePanel.activeSelf)
+            {
+                ActionManager.PauseGame?.Invoke(true);
+            }
+            else
+            {
+                ActionManager.PauseGame?.Invoke(false);
+            }
         }
         private void OpenGameOverPanel()
         {
             gameOverPanel.SetActive(true);
             sidePanel.SetActive(true);
             pausePanel.SetActive(false);
-            inputSystem.UIControl.SidePanel.performed -= ToggleSidePanel;
-            inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
+            UIControlDisable();
         }
 
         private void UIControlEnable()
@@ -62,12 +64,14 @@ namespace FUI
             pausePanel.SetActive(false);
             gameOverPanel.SetActive(false);
 
+            UIControlEnable();
+            inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
             ActionManager.OnToggleMoving += OffNewGamePanel;
         }
         private void OnEnable()
         {
+            ResetClass();
             inputSystem.Enable();
-            UIControlEnable();
             ActionManager.StartNewGame += ResetClass;
         }
         private void OnDisable()

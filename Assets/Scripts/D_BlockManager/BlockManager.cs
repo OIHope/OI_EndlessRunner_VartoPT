@@ -24,7 +24,7 @@ namespace DGeneration
         {
             ResetClass();
         }
-        private void Update()
+        private void FixedUpdate()
         {
             if (inMove)
             {
