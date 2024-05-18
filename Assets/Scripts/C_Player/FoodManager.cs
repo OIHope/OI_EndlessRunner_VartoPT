@@ -13,7 +13,10 @@ namespace CPlayer
         [SerializeField] private float foodDecreaseSpeed = 5f;
 
         private Coroutine foodDecreaseCoroutine;
-
+        private void Awake()
+        {
+            ResetFood();
+        }
         private void Update()
         {
             ManageFoodValues();
@@ -66,12 +69,14 @@ namespace CPlayer
             ActionManager.OnLoseHeart += ResetFood;
             ActionManager.OnHitFood += AddFoodValue;
             ActionManager.OnToggleMoving += TurnOnFoodDecrease;
+            ActionManager.StartNewGame += ResetFood;
         }
         private void OnDisable()
         {
             ActionManager.OnLoseHeart -= ResetFood;
             ActionManager.OnHitFood -= AddFoodValue;
             ActionManager.OnToggleMoving -= TurnOnFoodDecrease;
+            ActionManager.StartNewGame += ResetFood;
         }
     }
 }

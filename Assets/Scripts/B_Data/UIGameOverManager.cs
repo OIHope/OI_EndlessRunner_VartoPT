@@ -11,8 +11,7 @@ namespace FUI
 
         private void RestartScene()
         {
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.name);
+            ActionManager.StartNewGame?.Invoke();
         }
         private void OnEnable()
         {

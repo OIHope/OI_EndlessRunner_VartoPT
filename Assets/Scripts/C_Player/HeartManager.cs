@@ -12,7 +12,7 @@ namespace CPlayer
 
         private void Awake()
         {
-            ResetHeart();
+            ResetClass();
         }
         private void Update()
         {
@@ -29,12 +29,6 @@ namespace CPlayer
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
             ActionManager.OnLoseHeart?.Invoke();
         }
-        private void ResetHeart()
-        {
-            heartCount = heartStartCount;
-            ActionManager.UIHeartValueChanged?.Invoke(heartCount);
-            ActionManager.UIGameStatusChanged?.Invoke("Fresh Start");
-        }
         private void ManageHeart()
         {
             if (heartCount <= 0 && !deathIsTriggered)
@@ -44,19 +38,26 @@ namespace CPlayer
                 deathIsTriggered = true;
             }
         }
+        private void ResetClass()
+        {
+            deathIsTriggered = false;
+            heartCount = heartStartCount;
+            ActionManager.UIHeartValueChanged?.Invoke(heartCount);
+            ActionManager.UIGameStatusChanged?.Invoke("Fresh Start");
+        }
         private void OnEnable()
         {
             ActionManager.OnFillFoodBar += AddHeart;
             ActionManager.OnStarving += RemoveHeart;
             ActionManager.OnHitObstacle += RemoveHeart;
-            ActionManager.OnStartNewRun += ResetHeart;
+            ActionManager.StartNewGame += ResetClass;
         }
         private void OnDisable()
         {
             ActionManager.OnFillFoodBar -= AddHeart;
             ActionManager.OnStarving -= RemoveHeart;
             ActionManager.OnHitObstacle -= RemoveHeart;
-            ActionManager.OnStartNewRun -= ResetHeart;
+            ActionManager.StartNewGame -= ResetClass;
 
         }
     }

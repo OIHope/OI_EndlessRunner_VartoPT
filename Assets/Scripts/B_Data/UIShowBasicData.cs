@@ -11,11 +11,7 @@ namespace FUI
         private string status;
         private void Awake()
         {
-            statText = GetComponent<TextMeshProUGUI>();
-
-            ActionManager.UIFoodValueChanged += SetFoodValue;
-            ActionManager.UIHeartValueChanged += SetHeartValue;
-            ActionManager.UIGameStatusChanged += SetGameStatus;
+            ResetClass();
         }
         private void Update()
         {
@@ -35,6 +31,24 @@ namespace FUI
         private void SetGameStatus(string value)
         {
             status = value;
+        }
+        private void ResetClass()
+        {
+            statText = GetComponent<TextMeshProUGUI>();
+        }
+        private void OnEnable()
+        {
+            ActionManager.UIFoodValueChanged += SetFoodValue;
+            ActionManager.UIHeartValueChanged += SetHeartValue;
+            ActionManager.UIGameStatusChanged += SetGameStatus;
+            ActionManager.StartNewGame += ResetClass;
+        }
+        private void OnDisable()
+        {
+            ActionManager.UIFoodValueChanged -= SetFoodValue;
+            ActionManager.UIHeartValueChanged -= SetHeartValue;
+            ActionManager.UIGameStatusChanged -= SetGameStatus;
+            ActionManager.StartNewGame += ResetClass;
         }
     }
 }

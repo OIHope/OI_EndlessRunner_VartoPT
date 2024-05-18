@@ -8,7 +8,6 @@ namespace DGeneration
     public class BlockManager : MonoBehaviour
     {
         public Enviroment enviroment;
-        public Difficulty difficulty;
         public Vector3 spawnPosition;
         [SerializeField] private float speed;
         [SerializeField] private bool inMove;
@@ -19,24 +18,10 @@ namespace DGeneration
         [SerializeField] private List<GameObject> obstaclePool;
         [SerializeField] private GameObject collectableFolder;
         [SerializeField] private List<GameObject> collectablePool;
+
         private void Awake()
         {
-            ActionManager.OnToggleMoving += ToggleMove;
-
-            for (int i = 0; i < collectableFolder.transform.childCount; i++)
-            {
-                GameObject child = collectableFolder.transform.GetChild(i).gameObject;
-                collectablePool.Add(child);
-            }
-            for (int i = 0; i < obstacleFolder.transform.childCount; i++)
-            {
-                GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
-                obstaclePool.Add(child);
-            }
-            if (!singleUse)
-            {
-                ResetBlock();
-            }
+            ResetClass();
         }
         private void Update()
         {
@@ -85,13 +70,36 @@ namespace DGeneration
             }
             gameObject.SetActive(false);
         }
+        private void ResetClass()
+        {
+            ActionManager.OnToggleMoving += ToggleMove;
+
+            collectablePool.Clear();
+            for (int i = 0; i < collectableFolder.transform.childCount; i++)
+            {
+                GameObject child = collectableFolder.transform.GetChild(i).gameObject;
+                collectablePool.Add(child);
+            }
+            obstaclePool.Clear();
+            for (int i = 0; i < obstacleFolder.transform.childCount; i++)
+            {
+                GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
+                obstaclePool.Add(child);
+            }
+            if (!singleUse)
+            {
+                ResetBlock();
+            }
+        }
         private void OnEnable()
         {
             inMove = true;
+            ActionManager.StartNewGame += ResetClass;
         }
         private void OnDisable()
         {
             inMove = false;
+            ActionManager.StartNewGame -= ResetClass;
         }
         private void OnDestroy()
         {

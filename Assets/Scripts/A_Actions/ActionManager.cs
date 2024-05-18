@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static class ActionManager
 {
+    //GAMELOOP
+    public static Action StartNewGame;
+
     //Generator Manager
     public static Action OnTouchLevelEnd;
     public static Action OnTouchLevelStart;
@@ -18,8 +21,6 @@ public static class ActionManager
     public static Action OnLoseHeart;
 
     public static Action OnDeath;
-    public static Action OnStartNewRun;
-
 
     //Collectables
     public static Action<int> OnCollectCoin;

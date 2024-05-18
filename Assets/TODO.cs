@@ -8,35 +8,34 @@ enviroment:
 
 mechanics:
 
--prefab beased
++ prefab beased
 
 - randomly generated endless level
 	if has more enviroments - make step step system
 
-- player is static as but level is moving
++ player is static as but level is moving
 
-- basic 3 roads
++ basic 3 roads
 
-- movement:
++ movement:
 	go left\right
 	jump
 	slide
 
-- obstacles:
++ obstacles:
 	big 1 line wall
 	big 2 line wall
 	small 3 line wall down
 	small 3 line wall up
 
 - collectables:
-	coins
+	+ food
 	modifiers
 
 - modifiers:
 	speed boost
-	collect all visible coins at once
-	destroy all visible obstacles (exept pits) at once
-	double jump (+5 times)
+	collect all visible food
+	destroy all visible obstacles
 	additional life (+1 life)
 
 - game loop
@@ -46,8 +45,9 @@ mechanics:
 		when hit the obstacle - it destroys, so you cal run further
 		if fall in the pit - level moves forvard to skip the pit
 	you collect food to keep running
-		if foodBar is empty you loose -1Life
-		if continue - food bar fills half way
+		+ if foodBar is empty you loose -1Life
+		+ if continue - food bar fills half way
+		+ if foodbar is full: +1Life
 
 player:
 
@@ -66,8 +66,41 @@ player:
 	hit the wall while slide
 	resurect
 
-
+UI:
+	- main menu
+		start game
+		difficulty start choose
+		exit game
+	- pause menu
+		continue
+		restart
+		to menu
+	- startRunning panel
+		press Move button to Start
+	- stats panel
+		always on screen
+	- gameOver menu
+		score show all game stats: gameScore based on time, all food collected
+		compare score with devs best score XD
+		restart
+		menu
+	- propper Restart
+		restart should reset ALL objects on the scene, just like in doodle I did
+		
 DONE:
+
+18.05
+
+- changed a bit scene layout: 
+	separated ui(main menu ui and gameplay ui)
+	placed game objects into its own container
+- added forest and cave blocks placeholders
+- removed dificulty enum
+- generation now used dictionaries to circle enviroments with step count, realy handy staff
+- fixed player keep moving after gameover
+	but there's a bug, the you can restart if you hit move buttons right after gameover ui popup
+	somehow death don't trigger in time
+- fixed newGame start panel popup (in a bad way obviously)
 
 17.05
 

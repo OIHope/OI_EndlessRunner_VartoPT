@@ -16,17 +16,11 @@ namespace FUI
 
         private void Awake()
         {
-            inputSystem ??= new InputSystem();
-
-            newGamePanel.SetActive(true);
-            sidePanel.SetActive(true);
-            pausePanel.SetActive(false);
-            gameOverPanel.SetActive(false);
-
-            ActionManager.OnToggleMoving += OffNewGamePanel;
+            ResetClass();
         }
         private void OffNewGamePanel(float n, bool m)
         {
+            if (!m) return;
             newGamePanel.SetActive(false);
             ActionManager.OnToggleMoving -= OffNewGamePanel;
         }
@@ -59,15 +53,28 @@ namespace FUI
             inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
             ActionManager.OnDeath -= OpenGameOverPanel;
         }
+        private void ResetClass()
+        {
+            inputSystem ??= new InputSystem();
+
+            newGamePanel.SetActive(true);
+            sidePanel.SetActive(true);
+            pausePanel.SetActive(false);
+            gameOverPanel.SetActive(false);
+
+            ActionManager.OnToggleMoving += OffNewGamePanel;
+        }
         private void OnEnable()
         {
             inputSystem.Enable();
             UIControlEnable();
+            ActionManager.StartNewGame += ResetClass;
         }
         private void OnDisable()
         {
             inputSystem.Disable();
             UIControlDisable();
+            ActionManager.StartNewGame -= ResetClass;
         }
     }
 }

@@ -20,11 +20,12 @@ namespace CPlayer
         private Coroutine slideCoroutine;
         private Coroutine tempRemoveControl;
 
+        [SerializeField] private bool isDead = false;
+
         private void Awake()
         {
-            inputSystem ??= new InputSystem();
+            ResetClass();
         }
-
         private void FixedUpdate()
         {
             transform.position = Vector3.Lerp(transform.position, playerPos, 7f * Time.deltaTime);
@@ -135,7 +136,10 @@ namespace CPlayer
         {
             PlayerContolDisable();
             yield return new WaitForSeconds(1f);
-            PlayerContolEnable();
+            if (!isDead)
+            {
+                PlayerContolEnable();
+            }
         }
         private void PlayerContolDisable()
         {
@@ -151,15 +155,34 @@ namespace CPlayer
             inputSystem.PlayerMovement.Right.performed += MoveRight;
             inputSystem.PlayerMovement.Slide.performed += Slide;
         }
+        private void PlayerDie()
+        {
+            isDead = true;
+            PlayerContolDisable();
+        }
+        private void ResetClass()
+        {
+            inputSystem ??= new InputSystem();
+            playerPos = Vector3.zero;
+            posID = 1;
+            isDead = false;
+            StopMoving();
+            PlayerContolEnable();
+
+        }
         private void OnEnable()
         {
             inputSystem.Enable();
             PlayerContolEnable();
+            ActionManager.OnDeath += PlayerDie;
+            ActionManager.StartNewGame += ResetClass;
         }
         private void OnDisable()
         {
             inputSystem.Disable();
             PlayerContolDisable();
+            ActionManager.OnDeath -= PlayerDie;
+            ActionManager.StartNewGame -= ResetClass;
         }
         private void OnDestroy()
         {
