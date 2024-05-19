@@ -105,7 +105,11 @@ p2
 - gameovr panel now receives stat data on enable
 with that base UI part is DONE
 until I find some bugs, lol
-
+p3
+- some minor UI adjustments
+- added models for blocks, now it looks like a game
+- made blocks as prefabVariants, but somehow fucked up FOREST and MOUNTAIN variantsm they inherid brom wrong prefab
+- adjusted camera but idk...
 
 18.05
 

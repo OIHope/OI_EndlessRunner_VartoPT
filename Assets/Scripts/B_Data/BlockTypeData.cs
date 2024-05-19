@@ -6,6 +6,5 @@ namespace BData
         Cave = 1,
         Field = 2,
         Mountain = 3,
-        Mine = 4,
     }
 }
