@@ -62,9 +62,6 @@ namespace DGeneration
             {
                 obstacle.SetActive(true);
             }
-        }
-        private void ResetBlockManagerClass()
-        {
             collectablePool.Clear();
             for (int i = 0; i < collectableFolder.transform.childCount; i++)
             {
@@ -77,6 +74,9 @@ namespace DGeneration
                 GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
                 obstaclePool.Add(child);
             }
+        }
+        private void ResetBlockManagerClass()
+        {
             if (!singleUse)
             {
                 ResetBlock();

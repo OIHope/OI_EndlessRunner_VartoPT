@@ -15,7 +15,6 @@ public class BlockStartPoolManager : MonoBehaviour
         startBlock[1].gameObject.SetActive(true);
         startBlock[0].transform.position = startPosition1;
         startBlock[1].transform.position = startPosition2;
-        Debug.Log("BlockStartPool is RESET");
     }
     private void ToggleBlockMove(float speed, bool inMove)
     {

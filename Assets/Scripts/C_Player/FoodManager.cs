@@ -10,7 +10,7 @@ namespace CPlayer
         [SerializeField] private int foodValue = 5;
         [SerializeField] private int foodAmount = 50;
         [SerializeField] private int maxFood = 100;
-        [SerializeField] private float foodDecreaseSpeed = 5f;
+        [SerializeField] private float foodDecreaseSpeed = 1f;
 
         private Coroutine foodDecreaseCoroutine;
         private void Update()
@@ -62,12 +62,12 @@ namespace CPlayer
                 yield return new WaitForSeconds(foodDecreaseSpeed);
                 foodAmount--;
                 ActionManager.UIFoodValueChanged?.Invoke(foodAmount);
+                ActionManager.OnSecondPass?.Invoke();
             }
         }
         private void ResetFoodManagerClass()
         {
             ResetFood();
-            Debug.Log("FoodManager is RESET");
         }
         private void OnEnable()
         {

@@ -13,17 +13,6 @@ namespace FUI
         {
             ActionManager.StopGame?.Invoke();
         }
-        private void Update()
-        {
-            //if (Input.GetButtonDown("I"))
-            //{
-            //    var invocationList = ActionManager.StartNewGame.GetInvocationList();
-            //    foreach (var subscriber in invocationList)
-            //    {
-            //        Debug.Log($"Subscriber: {subscriber.Method.Name}, Target: {subscriber.Target}");
-            //    }
-            //}
-        }
         private void BackToMenu()
         {
             uiMainMenu.SetActive(true);

@@ -31,9 +31,14 @@ public static class ActionManager
     //UI SidePanel
     public static Action<int> UIFoodValueChanged;
     public static Action<int> UIHeartValueChanged;
-    public static Action<string> UIGameStatusChanged;
+    public static Action<int, int> UITimeValueChanged;
 
     //IU Input
     public static Action UIToggleSidePanel;
     public static Action UITogglePausePanel;
+
+    //ScoreRelated
+    public static Action OnSecondPass;
+    public static Action<int,int,int,int,int> FinalScoreUdpate;
+    public static Action tempGameOverEnable;
 }

@@ -72,7 +72,6 @@ namespace DGeneration
             listCount = blockDictionary.Keys.Count - 1;
             currentListID = 0;
             currentTypeStep = 0;
-            Debug.Log("BlockPool is RESET");
         }
         private void ToggleBlockMove(float speed, bool inMove)
         {

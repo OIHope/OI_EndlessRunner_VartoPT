@@ -67,7 +67,6 @@ namespace FUI
             UIControlEnable();
             inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
             ActionManager.OnToggleMoving += OffNewGamePanel;
-            Debug.Log("UIGameplayManager is RESET");
         }
         private void OnEnable()
         {

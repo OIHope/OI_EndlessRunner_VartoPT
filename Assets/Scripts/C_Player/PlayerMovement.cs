@@ -164,7 +164,6 @@ namespace CPlayer
             isDead = false;
             StopMoving();
             PlayerContolEnable();
-            Debug.Log("Player is RESET");
         }
         private void OnEnable()
         {

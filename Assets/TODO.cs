@@ -75,9 +75,9 @@ UI:
 		to menu
 	+ startRunning panel
 		press Move button to Start
-	- stats panel
+	+ stats panel
 		always on screen
-	- gameOver menu
+	+ gameOver menu
 		score show all game stats: gameScore based on time, all food collected
 		compare score with devs best score XD
 		restart
@@ -97,7 +97,14 @@ DONE:
 - fixed restart issues in almost all systems
 - fixed pause system to release pause after the menu off (it took some time to track this issue)
 - fixed ActionManager sub and unsub in almost all systems
-
+p2
+- fixed obstacles and collectables dont reset
+- setting up score system
+- ui placeholder update to match score system
+- gameplay stats ui now show +- correctly all values
+- gameovr panel now receives stat data on enable
+with that base UI part is DONE
+until I find some bugs, lol
 
 
 18.05

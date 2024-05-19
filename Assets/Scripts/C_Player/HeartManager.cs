@@ -30,7 +30,6 @@ namespace CPlayer
             if (heartCount <= 0 && !deathIsTriggered)
             {
                 ActionManager.OnDeath?.Invoke();
-                ActionManager.UIGameStatusChanged?.Invoke("Game Over!");
                 deathIsTriggered = true;
             }
         }
@@ -39,8 +38,6 @@ namespace CPlayer
             deathIsTriggered = false;
             heartCount = heartStartCount;
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
-            ActionManager.UIGameStatusChanged?.Invoke("Fresh Start");
-            Debug.Log("HeartManager is RESET");
         }
         private void OnEnable()
         {
