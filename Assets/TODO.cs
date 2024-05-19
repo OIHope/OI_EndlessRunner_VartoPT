@@ -110,6 +110,9 @@ p3
 - added models for blocks, now it looks like a game
 - made blocks as prefabVariants, but somehow fucked up FOREST and MOUNTAIN variantsm they inherid brom wrong prefab
 - adjusted camera but idk...
+p4
+- fixd block pool and canBeUsed pool dont update... again
+- remade all but mountain prefabs, gonna change it tomorow..
 
 18.05
 

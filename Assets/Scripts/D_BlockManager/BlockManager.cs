@@ -30,8 +30,8 @@ namespace DGeneration
         private void MoveBlock()
         {
             transform.position = new Vector3
-                (transform.position.x, 
-                transform.position.y, 
+                (transform.position.x,
+                transform.position.y,
                 transform.position.z - (speed * Time.deltaTime));
         }
         private void OnTriggerEnter(Collider other)
@@ -42,26 +42,23 @@ namespace DGeneration
             }
             if (other.transform.tag == "TriggerDestroy")
             {
-                gameObject.SetActive(false);
+                RemoveFromScene();
             }
         }
         public void PlaceOnScene()
         {
+            gameObject.SetActive(true);
             ResetBlock();
             canBeUsed = false;
-            gameObject.SetActive(true);
+        }
+        public void RemoveFromScene()
+        {
+            canBeUsed = true;
+            gameObject.SetActive(false);
         }
         private void ResetBlock()
         {
             transform.position = spawnPosition;
-            foreach (GameObject obstacle in obstaclePool)
-            {
-                obstacle.SetActive(true);
-            }
-            foreach (GameObject obstacle in collectablePool)
-            {
-                obstacle.SetActive(true);
-            }
             collectablePool.Clear();
             for (int i = 0; i < collectableFolder.transform.childCount; i++)
             {
@@ -74,22 +71,14 @@ namespace DGeneration
                 GameObject child = obstacleFolder.transform.GetChild(i).gameObject;
                 obstaclePool.Add(child);
             }
-        }
-        private void ResetBlockManagerClass()
-        {
-            if (!singleUse)
+            foreach (GameObject obstacle in obstaclePool)
             {
-                ResetBlock();
+                obstacle.SetActive(true);
             }
-        }
-        private void OnEnable()
-        {
-            ActionManager.StartNewGame += ResetBlockManagerClass;
-        }
-        private void OnDisable()
-        {
-            canBeUsed = true;
-            ActionManager.StartNewGame -= ResetBlockManagerClass;
+            foreach (GameObject obstacle in collectablePool)
+            {
+                obstacle.SetActive(true);
+            }
         }
     }
 }

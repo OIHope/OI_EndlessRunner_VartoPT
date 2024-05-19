@@ -56,7 +56,7 @@ namespace DGeneration
                     if (thisPool.transform.childCount != 0 && !child.singleUse)
                     {
                         blockPool.Add(child);
-                        child.gameObject.SetActive(false);
+                        child.RemoveFromScene();
                     }
                 }
             }
