@@ -5,6 +5,7 @@ public static class ActionManager
     //GAMELOOP
     public static Action StartNewGame;
     public static Action<bool> PauseGame;
+    public static Action StopGame;
 
     //Generator Manager
     public static Action OnTouchLevelEnd;

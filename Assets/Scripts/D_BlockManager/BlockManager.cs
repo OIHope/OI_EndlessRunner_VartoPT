@@ -9,8 +9,8 @@ namespace DGeneration
     {
         public Enviroment enviroment;
         public Vector3 spawnPosition;
-        [SerializeField] private float speed;
-        [SerializeField] private bool inMove;
+        public float speed;
+        public bool inMove;
         [SerializeField] private bool canMove;
         public bool canBeUsed;
         public bool singleUse;
@@ -20,10 +20,6 @@ namespace DGeneration
         [SerializeField] private GameObject collectableFolder;
         [SerializeField] private List<GameObject> collectablePool;
 
-        private void Awake()
-        {
-            ResetClass();
-        }
         private void FixedUpdate()
         {
             if (inMove)
@@ -46,16 +42,13 @@ namespace DGeneration
             }
             if (other.transform.tag == "TriggerDestroy")
             {
-                ResetBlock();
+                gameObject.SetActive(false);
             }
-        }
-        private void ToggleMove(float moveSpeed, bool willMove)
-        {
-            inMove = willMove;
-            speed = moveSpeed;
         }
         public void PlaceOnScene()
         {
+            ResetBlock();
+            canBeUsed = false;
             gameObject.SetActive(true);
         }
         private void ResetBlock()
@@ -69,12 +62,9 @@ namespace DGeneration
             {
                 obstacle.SetActive(true);
             }
-            gameObject.SetActive(false);
         }
-        private void ResetClass()
+        private void ResetBlockManagerClass()
         {
-            ActionManager.OnToggleMoving += ToggleMove;
-
             collectablePool.Clear();
             for (int i = 0; i < collectableFolder.transform.childCount; i++)
             {
@@ -94,19 +84,12 @@ namespace DGeneration
         }
         private void OnEnable()
         {
-            canBeUsed = false;
-            inMove = true;
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame += ResetBlockManagerClass;
         }
         private void OnDisable()
         {
             canBeUsed = true;
-            inMove = false;
-            ActionManager.StartNewGame -= ResetClass;
-        }
-        private void OnDestroy()
-        {
-            ActionManager.OnToggleMoving -= ToggleMove;
+            ActionManager.StartNewGame -= ResetBlockManagerClass;
         }
     }
 }

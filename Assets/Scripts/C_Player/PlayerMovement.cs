@@ -22,10 +22,6 @@ namespace CPlayer
 
         [SerializeField] private bool isDead = false;
 
-        private void Awake()
-        {
-            ResetClass();
-        }
         private void FixedUpdate()
         {
             transform.position = Vector3.Lerp(transform.position, playerPos, 7f * Time.deltaTime);
@@ -160,7 +156,7 @@ namespace CPlayer
             isDead = true;
             PlayerContolDisable();
         }
-        private void ResetClass()
+        private void ResetPlayerMovementClass()
         {
             inputSystem ??= new InputSystem();
             playerPos = Vector3.zero;
@@ -168,21 +164,22 @@ namespace CPlayer
             isDead = false;
             StopMoving();
             PlayerContolEnable();
-
+            Debug.Log("Player is RESET");
         }
         private void OnEnable()
         {
+            ResetPlayerMovementClass();
             inputSystem.Enable();
             PlayerContolEnable();
             ActionManager.OnDeath += PlayerDie;
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame += ResetPlayerMovementClass;
         }
         private void OnDisable()
         {
             inputSystem.Disable();
             PlayerContolDisable();
             ActionManager.OnDeath -= PlayerDie;
-            ActionManager.StartNewGame -= ResetClass;
+            ActionManager.StartNewGame -= ResetPlayerMovementClass;
         }
         private void OnDestroy()
         {

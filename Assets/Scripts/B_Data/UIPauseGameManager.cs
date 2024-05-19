@@ -21,7 +21,8 @@ namespace FUI
         }
         private void ExitToMenu()
         {
-            Application.Quit();
+            ActionManager.PauseGame?.Invoke(false);
+            ActionManager.StopGame?.Invoke();
         }
         private void OnEnable()
         {

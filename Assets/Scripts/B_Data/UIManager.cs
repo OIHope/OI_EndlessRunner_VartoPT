@@ -1,84 +1,52 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace FUI
 {
     public class UIManager : MonoBehaviour
     {
-        private InputSystem inputSystem;
+        [SerializeField] private GameObject uiMainMenu;
+        [SerializeField] private GameObject uiGameplay;
+        [SerializeField] private GameObject gmMainMenu;
+        [SerializeField] private GameObject gmGameplay;
 
-        [SerializeField] private GameObject sidePanel;
-        [SerializeField] private GameObject pausePanel;
-        [SerializeField] private GameObject newGamePanel;
-        [SerializeField] private GameObject gameOverPanel;
-
-        private void OffNewGamePanel(float n, bool m)
+        private void Start()
         {
-            if (!m) return;
-            newGamePanel.SetActive(false);
-            inputSystem.UIControl.PausePanel.performed += TogglePausePanel;
-            ActionManager.OnToggleMoving -= OffNewGamePanel;
+            ActionManager.StopGame?.Invoke();
         }
-        private void ToggleSidePanel(InputAction.CallbackContext callback)
+        private void Update()
         {
-            sidePanel.SetActive(!sidePanel.activeSelf);
+            //if (Input.GetButtonDown("I"))
+            //{
+            //    var invocationList = ActionManager.StartNewGame.GetInvocationList();
+            //    foreach (var subscriber in invocationList)
+            //    {
+            //        Debug.Log($"Subscriber: {subscriber.Method.Name}, Target: {subscriber.Target}");
+            //    }
+            //}
         }
-        private void TogglePausePanel(InputAction.CallbackContext callback)
+        private void BackToMenu()
         {
-            pausePanel.SetActive(!pausePanel.activeSelf);
-            if (pausePanel.activeSelf)
-            {
-                ActionManager.PauseGame?.Invoke(true);
-            }
-            else
-            {
-                ActionManager.PauseGame?.Invoke(false);
-            }
+            uiMainMenu.SetActive(true);
+            uiGameplay.SetActive(false);
+            gmMainMenu.SetActive(true);
+            gmGameplay.SetActive(false);
         }
-        private void OpenGameOverPanel()
+        private void BackToGameplay()
         {
-            gameOverPanel.SetActive(true);
-            sidePanel.SetActive(true);
-            pausePanel.SetActive(false);
-            UIControlDisable();
-        }
-
-        private void UIControlEnable()
-        {
-            inputSystem.UIControl.SidePanel.performed += ToggleSidePanel;
-            inputSystem.UIControl.PausePanel.performed += TogglePausePanel;
-            ActionManager.OnDeath += OpenGameOverPanel;
-        }
-        private void UIControlDisable()
-        {
-            inputSystem.UIControl.SidePanel.performed -= ToggleSidePanel;
-            inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
-            ActionManager.OnDeath -= OpenGameOverPanel;
-        }
-        private void ResetClass()
-        {
-            inputSystem ??= new InputSystem();
-
-            newGamePanel.SetActive(true);
-            sidePanel.SetActive(true);
-            pausePanel.SetActive(false);
-            gameOverPanel.SetActive(false);
-
-            UIControlEnable();
-            inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
-            ActionManager.OnToggleMoving += OffNewGamePanel;
+            uiMainMenu.SetActive(false);
+            uiGameplay.SetActive(true);
+            gmMainMenu.SetActive(false);
+            gmGameplay.SetActive(true);
         }
         private void OnEnable()
         {
-            ResetClass();
-            inputSystem.Enable();
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame += BackToGameplay;
+            ActionManager.StopGame += BackToMenu;
         }
         private void OnDisable()
         {
-            inputSystem.Disable();
-            UIControlDisable();
-            ActionManager.StartNewGame -= ResetClass;
+            ActionManager.StartNewGame -= BackToGameplay;
+            ActionManager.StopGame -= BackToMenu;
         }
     }
 }

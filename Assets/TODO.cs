@@ -66,15 +66,14 @@ player:
 	resurect ?
 
 UI:
-	- main menu
+	+ main menu
 		start game
-		difficulty start choose
 		exit game
-	- pause menu
+	+ pause menu
 		continue
 		restart
 		to menu
-	- startRunning panel
+	+ startRunning panel
 		press Move button to Start
 	- stats panel
 		always on screen
@@ -83,10 +82,23 @@ UI:
 		compare score with devs best score XD
 		restart
 		menu
-	- propper Restart
+	+ propper Restart
 		restart should reset ALL objects on the scene, just like in doodle I did
 		
 DONE:
+
+19.05
+
+- gameover panel now has menu button, that closes app (if build)
+- changed some names in UI
+- add main menu placeholder
+- fixed block dont add to list pool
+- fixed blocks dont move, after restart
+- fixed restart issues in almost all systems
+- fixed pause system to release pause after the menu off (it took some time to track this issue)
+- fixed ActionManager sub and unsub in almost all systems
+
+
 
 18.05
 

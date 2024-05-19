@@ -10,10 +10,6 @@ namespace CPlayer
         private int heartCount;
         private bool deathIsTriggered;
 
-        private void Start()
-        {
-            ResetClass();
-        }
         private void Update()
         {
             ManageHeart();
@@ -38,26 +34,28 @@ namespace CPlayer
                 deathIsTriggered = true;
             }
         }
-        private void ResetClass()
+        private void ResetHeartManagerClass()
         {
             deathIsTriggered = false;
             heartCount = heartStartCount;
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
             ActionManager.UIGameStatusChanged?.Invoke("Fresh Start");
+            Debug.Log("HeartManager is RESET");
         }
         private void OnEnable()
         {
+            ResetHeartManagerClass();
             ActionManager.OnFillFoodBar += AddHeart;
             ActionManager.OnStarving += RemoveHeart;
             ActionManager.OnHitObstacle += RemoveHeart;
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame += ResetHeartManagerClass;
         }
         private void OnDisable()
         {
             ActionManager.OnFillFoodBar -= AddHeart;
             ActionManager.OnStarving -= RemoveHeart;
             ActionManager.OnHitObstacle -= RemoveHeart;
-            ActionManager.StartNewGame -= ResetClass;
+            ActionManager.StartNewGame -= ResetHeartManagerClass;
 
         }
     }

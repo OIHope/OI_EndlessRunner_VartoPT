@@ -1,10 +1,9 @@
+using BData;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
-using BData;
-using Unity.VisualScripting;
 
 namespace DGeneration
 {
@@ -15,13 +14,9 @@ namespace DGeneration
         private int currentListID, listCount;
 
         private Dictionary<Enviroment, List<BlockManager>> blockDictionary = new();
-        private List<BlockManager> blockPool = new();
+        [SerializeField] private List<BlockManager> blockPool = new();
         [SerializeField] private List<BlockManager> canUsePool = new();
 
-        private void Awake()
-        {
-            ResetClass();
-        }
         private void PickBlockToSpawn()
         {
             GetRandomBlockID((Enviroment)GetListID()).PlaceOnScene();
@@ -48,7 +43,7 @@ namespace DGeneration
             currentListID = currentListID > listCount ? 0 : currentListID;
             return currentListID;
         }
-        private void ResetClass()
+        private void ResetBlockPoolClass()
         {
             blockDictionary.Clear();
             blockPool.Clear();
@@ -61,6 +56,7 @@ namespace DGeneration
                     if (thisPool.transform.childCount != 0 && !child.singleUse)
                     {
                         blockPool.Add(child);
+                        child.gameObject.SetActive(false);
                     }
                 }
             }
@@ -76,16 +72,28 @@ namespace DGeneration
             listCount = blockDictionary.Keys.Count - 1;
             currentListID = 0;
             currentTypeStep = 0;
+            Debug.Log("BlockPool is RESET");
+        }
+        private void ToggleBlockMove(float speed, bool inMove)
+        {
+            foreach (var block in blockPool)
+            {
+                block.speed = speed;
+                block.inMove = inMove;
+            }
         }
         private void OnEnable()
         {
+            ResetBlockPoolClass();
+            ActionManager.OnToggleMoving += ToggleBlockMove;
             ActionManager.OnTouchLevelStart += PickBlockToSpawn;
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame += ResetBlockPoolClass;
         }
         private void OnDisable()
         {
+            ActionManager.OnToggleMoving -= ToggleBlockMove;
             ActionManager.OnTouchLevelStart -= PickBlockToSpawn;
-            ActionManager.StartNewGame -= ResetClass;
+            ActionManager.StartNewGame -= ResetBlockPoolClass;
         }
     }
 }

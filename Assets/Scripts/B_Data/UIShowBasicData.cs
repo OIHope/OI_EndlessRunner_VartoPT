@@ -9,10 +9,7 @@ namespace FUI
         private int foodValue;
         private int heartValue;
         private string status;
-        private void Awake()
-        {
-            ResetClass();
-        }
+
         private void Update()
         {
             statText.text = 
@@ -32,23 +29,24 @@ namespace FUI
         {
             status = value;
         }
-        private void ResetClass()
+        private void ResetUIBasicDataClass()
         {
             statText = GetComponent<TextMeshProUGUI>();
         }
         private void OnEnable()
         {
+            ResetUIBasicDataClass();
             ActionManager.UIFoodValueChanged += SetFoodValue;
             ActionManager.UIHeartValueChanged += SetHeartValue;
             ActionManager.UIGameStatusChanged += SetGameStatus;
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame += ResetUIBasicDataClass;
         }
         private void OnDisable()
         {
             ActionManager.UIFoodValueChanged -= SetFoodValue;
             ActionManager.UIHeartValueChanged -= SetHeartValue;
             ActionManager.UIGameStatusChanged -= SetGameStatus;
-            ActionManager.StartNewGame += ResetClass;
+            ActionManager.StartNewGame -= ResetUIBasicDataClass;
         }
     }
 }
