@@ -184,6 +184,7 @@ namespace CPlayer
         {
             inputSystem ??= new InputSystem();
             playerPos = Vector3.zero;
+            playerRenderPos = Vector3.zero;
             posID = 1;
             isDead = false;
             StopMoving();
