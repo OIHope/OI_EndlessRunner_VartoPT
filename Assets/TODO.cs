@@ -92,6 +92,14 @@ DONE:
 - hoocked up animations
 - separated player collision part and render part movement, so render part remain on ground when slide action is performed
 - tweaked remaining mountain prefabs. fixed spacing between obstacles and so on
+p2
+- prpared models for cosmetics
+- linked materials to all models... i hate it
+- decorated all regions, and now I see that it SUCKS!
+	this visual garbage is  baaad, need to fix it
+but after all - this game is ready to play, at this point
+it just needs some visual UI things, level decoration tweaks, textres tweaks and it;s done, realy
+and SOUND!, need to wright some melodies, I guess
 
 19.05
 
