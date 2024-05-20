@@ -251,7 +251,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5231
+  m_VersionIndex: 5252
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -471,7 +471,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 648103d5eb8303b46a60ac7eb41c9d05, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2632bd030b87ed24f92e4968a6ef28a5, type: 2}
+      objectReference: {fileID: 2100000, guid: 011dbc00b802cf44babe0fd8043d2eb2, type: 2}
     - target: {fileID: 919132149155446097, guid: 648103d5eb8303b46a60ac7eb41c9d05, type: 3}
       propertyPath: m_Name
       value: obsTrunk_02

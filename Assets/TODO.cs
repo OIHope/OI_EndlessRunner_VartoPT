@@ -100,6 +100,10 @@ p2
 but after all - this game is ready to play, at this point
 it just needs some visual UI things, level decoration tweaks, textres tweaks and it;s done, realy
 and SOUND!, need to wright some melodies, I guess
+p3
+- a bit remade materials and textures, cleaned come detail clutters, but still looks a bit off
+- added skybox
+- changed camera position
 
 19.05
 
