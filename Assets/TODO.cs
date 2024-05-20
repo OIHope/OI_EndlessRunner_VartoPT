@@ -87,6 +87,12 @@ UI:
 		
 DONE:
 
+20.05
+- added player model with all animations
+- hoocked up animations
+- separated player collision part and render part movement, so render part remain on ground when slide action is performed
+- tweaked remaining mountain prefabs. fixed spacing between obstacles and so on
+
 19.05
 
 - gameover panel now has menu button, that closes app (if build)
