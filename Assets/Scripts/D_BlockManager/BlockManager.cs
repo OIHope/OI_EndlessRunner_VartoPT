@@ -19,6 +19,7 @@ namespace DGeneration
         [SerializeField] private List<GameObject> obstaclePool;
         [SerializeField] private GameObject collectableFolder;
         [SerializeField] private List<GameObject> collectablePool;
+        [SerializeField] private GameObject decorationFolder;
 
         private void FixedUpdate()
         {
@@ -56,6 +57,7 @@ namespace DGeneration
             canBeUsed = true;
             gameObject.SetActive(false);
         }
+        public void PerformanceMode(bool isOn) => decorationFolder.SetActive(!isOn);
         private void ResetBlock()
         {
             transform.position = spawnPosition;

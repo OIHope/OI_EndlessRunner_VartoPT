@@ -74,14 +74,14 @@ namespace CPlayer
             ResetFoodManagerClass();
             ActionManager.OnLoseHeart += ResetFood;
             ActionManager.OnHitFood += AddFoodValue;
-            ActionManager.OnToggleMoving += TurnOnFoodDecrease;
+            ActionManager.ToggleMoving += TurnOnFoodDecrease;
             ActionManager.StartNewGame += ResetFoodManagerClass;
         }
         private void OnDisable()
         {
             ActionManager.OnLoseHeart -= ResetFood;
             ActionManager.OnHitFood -= AddFoodValue;
-            ActionManager.OnToggleMoving -= TurnOnFoodDecrease;
+            ActionManager.ToggleMoving -= TurnOnFoodDecrease;
             ActionManager.StartNewGame -= ResetFoodManagerClass;
         }
     }

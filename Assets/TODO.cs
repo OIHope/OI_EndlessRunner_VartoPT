@@ -5,15 +5,15 @@ TODO:
 UI:
   System:
 	make input button selection
-	make ui prefab based, especialy buttons
+	+make ui prefab based, especialy buttons
 	make time to show like 00:00 but not 0:0
   Visual:
-	find good font
-	draw pretty panels
-	draw pretty buttons:
-		just one size
-	draw pretty icons:
-		food, heart, clock\timer, mainScore(star?)
+	+find good font
+	+draw pretty panels
+	+draw pretty buttons:
+		+just one size
+	+draw pretty icons:
+		+food, heart, clock\timer, mainScore(star?)
   New Feature:
 	add prompts for control input and game mechanics (food related)
 	add prompts on how you can use jump and slide (that you can interupt them)
@@ -21,6 +21,12 @@ UI:
 	add visual feedback on food and heart icons (animations made with unity (size\rotation\color))
 		both play short animation when gain one, and another animation when lose one
 		food start flashing when is low
+MENU:
+	+add settings
+		+add toggleBox for GodMode
+		+add toggleBox for performanceMode (it should turn on\off block decorations)
+		+add speed setup (maybe slider, or maybe checkbox idk) it has to be made somehow (maybe like a dificulty setting)
+	
 
 CAMERA:
 	figure out how to make distant objects to blend with background, so that clipping is not that bad
@@ -40,18 +46,15 @@ SYSTEM:
 	check hiding BlockPrefabs on the scene (or disabling them) to work correctly on start
 	player jump animation finishes before player is on ground
 		maybe add land animation?
-	on main menu:
-		add settings
-		add toggleBox for GodMode
-		add toggleBox for performanceMode (it should turn on\off block decorations)
-		add speed setup (maybe slider, or maybe checkbox idk) it has to be made somehow (maybe like a dificulty setting)
 	work on move system:
 		when player is hit - the next move input should be read as movement, not just toggle to start moving
 		on the begining fix that shit with "PRESS SPACE" to actualy work only on pressing SPACE
 	add loadingScreen in between menu and game, gameover and restart
 	add tutorial sequence (maybe like a slideShow with descriptions for basic mechanics)
+	implement godMode system
 	
 
+	NEED CODE CLEANING!!!
 
 
 
@@ -63,6 +66,14 @@ DONE:
 	but I have everyday builds huh, so I can see the progress
 - planning next moves, writing everything down to have a guideline on what to do\fix next
 - added gameManaged, all it does now - locks game at 60FPS so my laptod doesnt blow up
+p2
+- remade ui with new textures
+- made prefabs of buttons and some panels
+- added font and its material
+- made settings menu
+- implementd dificulty modes (low and high level movement speed)
+- implemented performance mode (turns off all decorations on blocks, exeft fences)
+- fixed somehow if pause game, go back to menu and start new game - pooled platforms move
 
 
 20.05

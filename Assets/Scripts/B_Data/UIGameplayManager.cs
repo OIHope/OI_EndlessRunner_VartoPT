@@ -17,7 +17,7 @@ namespace FUI
             if (!m) return;
             newGamePanel.SetActive(false);
             inputSystem.UIControl.PausePanel.performed += TogglePausePanel;
-            ActionManager.OnToggleMoving -= OffNewGamePanel;
+            ActionManager.ToggleMoving -= OffNewGamePanel;
         }
         private void ToggleSidePanel(InputAction.CallbackContext callback)
         {
@@ -66,7 +66,7 @@ namespace FUI
 
             UIControlEnable();
             inputSystem.UIControl.PausePanel.performed -= TogglePausePanel;
-            ActionManager.OnToggleMoving += OffNewGamePanel;
+            ActionManager.ToggleMoving += OffNewGamePanel;
         }
         private void OnEnable()
         {

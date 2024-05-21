@@ -81,6 +81,7 @@ MonoBehaviour:
   obstaclePool: []
   collectableFolder: {fileID: 7851678292958638235}
   collectablePool: []
+  decorationFolder: {fileID: 6928187996040999637}
 --- !u!1 &2622044942428918598
 GameObject:
   m_ObjectHideFlags: 0

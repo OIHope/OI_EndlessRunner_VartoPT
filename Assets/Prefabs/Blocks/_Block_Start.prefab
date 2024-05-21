@@ -3179,6 +3179,10 @@ PrefabInstance:
       propertyPath: singleUse
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1613290097114012828, guid: c81f3511b48a970468fb17b4504832f8, type: 3}
+      propertyPath: decorationFolder
+      value: 
+      objectReference: {fileID: 4719456878762555652}
     - target: {fileID: 2734037077029504645, guid: c81f3511b48a970468fb17b4504832f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

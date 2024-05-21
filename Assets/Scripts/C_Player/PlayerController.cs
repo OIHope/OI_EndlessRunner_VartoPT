@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +14,9 @@ namespace CPlayer
 
         [SerializeField] private bool isHit;
 
-        [SerializeField][Range(0f, 50f)] private float moveSpeed;
+        [SerializeField] private float moveSpeed;
+        [SerializeField] private bool godMode = false;
+
         [SerializeField][Range(0f, 5f)] private float jumpDuration;
         [SerializeField][Range(0f, 5f)] private float slideDuration;
         [SerializeField] private bool isMoving = false;
@@ -28,6 +31,8 @@ namespace CPlayer
 
         [SerializeField] private bool isDead = false;
 
+        private void SetMoveSpeed(float currentSpeed) => moveSpeed = currentSpeed;
+        private void SetGodMode(bool isGodModeOn) => godMode = isGodModeOn;
         private void Update()
         {
             playerAnimator.SetBool("isIdle", !isMoving);
@@ -110,7 +115,7 @@ namespace CPlayer
         }
         private void StartMoving()
         {
-            ActionManager.OnToggleMoving?.Invoke(moveSpeed, true);
+            ActionManager.ToggleMoving?.Invoke(moveSpeed, true);
 
             ActionManager.OnStarving += StopMoving;
             ActionManager.OnHitObstacle += StopMoving;
@@ -119,7 +124,7 @@ namespace CPlayer
         }
         private void StopMoving()
         {
-            ActionManager.OnToggleMoving?.Invoke(0f, false);
+            ActionManager.ToggleMoving?.Invoke(0f, false);
 
             ActionManager.OnStarving -= StopMoving;
             ActionManager.OnHitObstacle -= StopMoving;
@@ -178,10 +183,13 @@ namespace CPlayer
         private void PlayerDie()
         {
             isDead = true;
+            StopMoving();
             PlayerContolDisable();
         }
         private void ResetPlayerMovementClass()
         {
+            ActionManager.AskDifficultyChanged?.Invoke();
+            ActionManager.AskGodModeChanged?.Invoke();
             inputSystem ??= new InputSystem();
             playerPos = Vector3.zero;
             playerRenderPos = Vector3.zero;
@@ -190,18 +198,23 @@ namespace CPlayer
             StopMoving();
             PlayerContolEnable();
         }
+        
         private void OnEnable()
         {
+            ActionManager.DifficultyChanger += SetMoveSpeed;
+            ActionManager.GodModeChanger += SetGodMode;
+            ActionManager.OnDeath += PlayerDie;
+            ActionManager.StartNewGame += ResetPlayerMovementClass;
             ResetPlayerMovementClass();
             inputSystem.Enable();
             PlayerContolEnable();
-            ActionManager.OnDeath += PlayerDie;
-            ActionManager.StartNewGame += ResetPlayerMovementClass;
         }
         private void OnDisable()
         {
             inputSystem.Disable();
             PlayerContolDisable();
+            ActionManager.DifficultyChanger -= SetMoveSpeed;
+            ActionManager.GodModeChanger -= SetGodMode;
             ActionManager.OnDeath -= PlayerDie;
             ActionManager.StartNewGame -= ResetPlayerMovementClass;
         }

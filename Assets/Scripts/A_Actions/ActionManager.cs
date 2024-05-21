@@ -14,7 +14,7 @@ public static class ActionManager
 
 
     //Player Related
-    public static Action<float, bool> OnToggleMoving;
+    public static Action<float, bool> ToggleMoving;
     public static Action OnHitObstacle;
 
     public static Action OnStarving;
@@ -41,4 +41,17 @@ public static class ActionManager
     public static Action OnSecondPass;
     public static Action<int,int,int,int,int> FinalScoreUdpate;
     public static Action tempGameOverEnable;
+
+    //Settings Action
+    public static Action<bool> OnSwitchDifficulty;
+    public static Action<bool> OnTogglePerformanceMode;
+    public static Action<bool> OnToggleGodMode;
+
+    public static Action AskDifficultyChanged;
+    public static Action AskPerformanceModeChanged;
+    public static Action AskGodModeChanged;
+
+    public static Action<float> DifficultyChanger;
+    public static Action<bool> PerformanceModeChanger;
+    public static Action<bool> GodModeChanger;
 }

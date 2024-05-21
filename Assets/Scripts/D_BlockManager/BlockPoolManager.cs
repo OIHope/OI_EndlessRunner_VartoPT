@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using CPlayer;
 
 namespace DGeneration
 {
@@ -17,6 +18,9 @@ namespace DGeneration
         [SerializeField] private List<BlockManager> blockPool = new();
         [SerializeField] private List<BlockManager> canUsePool = new();
 
+        private bool performanceMode = false;
+
+        private void SetPerformanceMode(bool isModeOn) => performanceMode = isModeOn;
         private void PickBlockToSpawn()
         {
             GetRandomBlockID((Enviroment)GetListID()).PlaceOnScene();
@@ -43,6 +47,14 @@ namespace DGeneration
             currentListID = currentListID > listCount ? 0 : currentListID;
             return currentListID;
         }
+        private void ToggleBlockMove(float speed, bool inMove)
+        {
+            foreach (var block in blockPool)
+            {
+                block.speed = speed;
+                block.inMove = inMove;
+            }
+        }
         private void ResetBlockPoolClass()
         {
             blockDictionary.Clear();
@@ -57,6 +69,7 @@ namespace DGeneration
                     {
                         blockPool.Add(child);
                         child.RemoveFromScene();
+                        child.PerformanceMode(performanceMode);
                     }
                 }
             }
@@ -73,26 +86,35 @@ namespace DGeneration
             currentListID = 0;
             currentTypeStep = 0;
         }
-        private void ToggleBlockMove(float speed, bool inMove)
+        private void ExitGameplayModeSequence()
         {
-            foreach (var block in blockPool)
+            foreach(var block in blockPool)
             {
-                block.speed = speed;
-                block.inMove = inMove;
+                block.inMove = false;
+                block.RemoveFromScene();
             }
+            Debug.Log("exitGM xecuted");
         }
         private void OnEnable()
         {
-            ResetBlockPoolClass();
-            ActionManager.OnToggleMoving += ToggleBlockMove;
-            ActionManager.OnTouchLevelStart += PickBlockToSpawn;
             ActionManager.StartNewGame += ResetBlockPoolClass;
+            ActionManager.StopGame += ExitGameplayModeSequence;
+            ActionManager.PerformanceModeChanger += SetPerformanceMode;
+            ActionManager.AskPerformanceModeChanged?.Invoke();
+            ActionManager.ToggleMoving += ToggleBlockMove;
+            ActionManager.OnTouchLevelStart += PickBlockToSpawn;
+
+            ResetBlockPoolClass();
         }
         private void OnDisable()
         {
-            ActionManager.OnToggleMoving -= ToggleBlockMove;
-            ActionManager.OnTouchLevelStart -= PickBlockToSpawn;
             ActionManager.StartNewGame -= ResetBlockPoolClass;
+            ActionManager.StopGame -= ExitGameplayModeSequence;
+
+            ActionManager.PerformanceModeChanger -= SetPerformanceMode;
+
+            ActionManager.ToggleMoving -= ToggleBlockMove;
+            ActionManager.OnTouchLevelStart -= PickBlockToSpawn;
         }
     }
 }
