@@ -9,7 +9,7 @@ namespace AComponents
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                ActionManager.OnHitObstacle?.Invoke();
+                ActionManager.OnHitObstacle?.Invoke(0f, false);
                 foreach (var action in actions)
                 {
                     action.Execute();

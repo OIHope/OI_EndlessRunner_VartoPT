@@ -15,9 +15,9 @@ public static class ActionManager
 
     //Player Related
     public static Action<float, bool> ToggleMoving;
-    public static Action OnHitObstacle;
+    public static Action<float, bool> OnHitObstacle;
 
-    public static Action OnStarving;
+    public static Action<float,bool> OnStarving;
     public static Action OnLoseHeart;
 
     public static Action OnDeath;

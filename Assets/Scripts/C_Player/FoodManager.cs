@@ -32,7 +32,7 @@ namespace CPlayer
             if (foodAmount <= 0)
             {
                 foodAmount = 0;
-                ActionManager.OnStarving?.Invoke();
+                ActionManager.OnStarving?.Invoke(0f, false);
             }
         }
         private void ResetFood()

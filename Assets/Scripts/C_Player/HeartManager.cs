@@ -19,7 +19,7 @@ namespace CPlayer
             heartCount++;
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
         }
-        private void RemoveHeart()
+        private void RemoveHeart(float i, bool j)
         {
             heartCount--;
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
