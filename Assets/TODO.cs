@@ -1,91 +1,69 @@
 /*
 
-style - lowPoly(like mega LOWPOLY)
-enviroment:
-	forest
-	cave
-	field
-
-mechanics:
-
-+ prefab beased
-
-- randomly generated endless level
-	if has more enviroments - make step step system
-
-+ player is static as but level is moving
-
-+ basic 3 roads
-
-+ movement:
-	go left\right
-	jump
-	slide
-
-+ obstacles:
-	big 1 line wall
-	big 2 line wall
-	small 3 line wall down
-	small 3 line wall up
-
-- collectables:
-	+ food
-	modifiers
-
-- modifiers:
-	speed boost
-	collect all visible food
-	destroy all visible obstacles
-	additional life (+1 life)
-
-- game loop
-	run for the best score
-		score sets on how long you're running
-	if you hit the obstacle you have -1 life restart prompt
-		when hit the obstacle - it destroys, so you cal run further
-		if fall in the pit - level moves forvard to skip the pit
-	you collect food to keep running
-		+ if foodBar is empty you loose -1Life
-		+ if continue - food bar fills half way
-		+ if foodbar is full: +1Life
-
-player:
-
-- model:
-	adventurer
-	it should be black&white, so can add custom colors
-	and maybe add some cloths and so on (if have time)
-	
-- animations:
-	idle, ready to start running
-	run
-	jump
-	slide
-	hit the wall while stand
-	hit the wall while slide
-	resurect ?
+TODO:
 
 UI:
-	+ main menu
-		start game
-		exit game
-	+ pause menu
-		continue
-		restart
-		to menu
-	+ startRunning panel
-		press Move button to Start
-	+ stats panel
-		always on screen
-	+ gameOver menu
-		score show all game stats: gameScore based on time, all food collected
-		compare score with devs best score XD
-		restart
-		menu
-	+ propper Restart
-		restart should reset ALL objects on the scene, just like in doodle I did
-		
+  System:
+	make input button selection
+	make ui prefab based, especialy buttons
+	make time to show like 00:00 but not 0:0
+  Visual:
+	find good font
+	draw pretty panels
+	draw pretty buttons:
+		just one size
+	draw pretty icons:
+		food, heart, clock\timer, mainScore(star?)
+  New Feature:
+	add prompts for control input and game mechanics (food related)
+	add prompts on how you can use jump and slide (that you can interupt them)
+	add prompt when food is low and when one heart is left
+	add visual feedback on food and heart icons (animations made with unity (size\rotation\color))
+		both play short animation when gain one, and another animation when lose one
+		food start flashing when is low
+
+CAMERA:
+	figure out how to make distant objects to blend with background, so that clipping is not that bad
+	add animation feedback on hit
+	make it follow the player on horizontal axis (smooooooothly)
+
+VISUAL:
+	declutter backgrounds to improve both performance and visual
+	check out blocks food positioning 
+	maybe make food blocks prefabs?
+	add particles to the game:
+		ui particles: food\heart\setting new best score
+		inGame particles: footStep, jump, slide, hit, fall, obstacleDestroy, foodCollect
+
+
+SYSTEM:
+	check hiding BlockPrefabs on the scene (or disabling them) to work correctly on start
+	player jump animation finishes before player is on ground
+		maybe add land animation?
+	on main menu:
+		add settings
+		add toggleBox for GodMode
+		add toggleBox for performanceMode (it should turn on\off block decorations)
+		add speed setup (maybe slider, or maybe checkbox idk) it has to be made somehow (maybe like a dificulty setting)
+	work on move system:
+		when player is hit - the next move input should be read as movement, not just toggle to start moving
+		on the begining fix that shit with "PRESS SPACE" to actualy work only on pressing SPACE
+	add loadingScreen in between menu and game, gameover and restart
+	add tutorial sequence (maybe like a slideShow with descriptions for basic mechanics)
+	
+
+
+
+
+	
 DONE:
+
+21.05
+- fixed gitIgnore file, as it didn't upload .meta files so previous uploads are completely fucked up...
+	but I have everyday builds huh, so I can see the progress
+- planning next moves, writing everything down to have a guideline on what to do\fix next
+- added gameManaged, all it does now - locks game at 60FPS so my laptod doesnt blow up
+
 
 20.05
 - added player model with all animations
@@ -192,17 +170,6 @@ p4
 - basic startMove function, that must be scaled in the future
 - basic jump that doesnt work as intended
 	the system of jump and slide must be reconsidered to work on coroutines but not on physics
-
-
-
-
-
-
-
-
-
-
-
 
 
 
