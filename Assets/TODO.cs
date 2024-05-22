@@ -15,16 +15,12 @@ UI:
 
 CAMERA:
 	figure out how to make distant objects to blend with background, so that clipping is not that bad
-	add animation feedback on hit
-	make it follow the player on horizontal axis (smooooooothly)
 
 VISUAL:
 	check out blocks food positioning 
 	add particles to the game:
 		ui particles: food\heart\setting new best score
 		inGame particles: footStep, jump, slide, hit, fall, obstacleDestroy, foodCollect
-
-	NEED CODE CLEANING!!!
 
 
 
@@ -37,6 +33,11 @@ DONE:
 		player and blocks get it's value still through ActionManager
 	- made time to show like 00:00 but not 0:0
 	- added prompt for controls and food at the begining of the run
+p2
+	- camera follow player
+	- camera shake on hit
+	- foodCollectable now has spen animation
+	- new menu bg
 
 
 21.05

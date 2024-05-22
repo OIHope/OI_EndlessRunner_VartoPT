@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
-using CPlayer;
 
 namespace DGeneration
 {
@@ -93,7 +92,6 @@ namespace DGeneration
                 block.inMove = false;
                 block.RemoveFromScene();
             }
-            Debug.Log("exitGM xecuted");
         }
         private void OnEnable()
         {

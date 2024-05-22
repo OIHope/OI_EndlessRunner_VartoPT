@@ -49,7 +49,7 @@ namespace CPlayer
             transform.position = Vector3.Lerp(transform.position, playerPos, 7f * Time.deltaTime);
             playerRender.transform.position = Vector3.Lerp(playerRender.transform.position, playerRenderPos, 7f * Time.deltaTime);
             playerRender.transform.rotation = Quaternion.Lerp(playerRender.transform.rotation, playerRenderRot, 10f * Time.deltaTime);
-            playerRenderRot = Quaternion.Lerp(playerRenderRot, Quaternion.identity, 3f * Time.deltaTime);
+            playerRenderRot = Quaternion.Lerp(playerRenderRot, Quaternion.identity, 7f * Time.deltaTime);
         }
         private void MoveLeft(InputAction.CallbackContext context)
         {
