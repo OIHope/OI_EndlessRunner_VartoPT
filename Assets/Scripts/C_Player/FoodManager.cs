@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Xml.Serialization;
 using UnityEngine;
 
 namespace CPlayer
@@ -11,19 +10,19 @@ namespace CPlayer
         [SerializeField] private int foodAmount = 50;
         [SerializeField] private int maxFood = 100;
         [SerializeField] private float foodDecreaseSpeed = 1f;
+        [SerializeField] private PlayerController player;
 
         private Coroutine foodDecreaseCoroutine;
-        private void Update()
-        {
-            ManageFoodValues();
-        }
+        private void Update() => ManageFoodValues();
         private void AddFoodValue()
         {
+            if (player.godMode) return;
             foodAmount += foodValue;
             ActionManager.UIFoodValueChanged?.Invoke(foodAmount);
         }
         private void ManageFoodValues()
         {
+            if (player.godMode) return;
             if (foodAmount > maxFood)
             {
                 foodAmount = (int)(maxFood * 0.3f);
@@ -37,23 +36,15 @@ namespace CPlayer
         }
         private void ResetFood()
         {
+            if (player.godMode) return;
             foodAmount = (int)(maxFood * 0.3f);
             ActionManager.UIFoodValueChanged?.Invoke(foodAmount);
-            
         }
         private void TurnOnFoodDecrease(float i, bool isMoving)
         {
-            if (isMoving)
-            {
-                foodDecreaseCoroutine = StartCoroutine(FoodDecrease());
-            }
-            else
-            {
-                if (foodDecreaseCoroutine != null)
-                {
-                    StopCoroutine(foodDecreaseCoroutine);
-                }
-            }
+            if (player.godMode) return;
+            if (isMoving) foodDecreaseCoroutine = StartCoroutine(FoodDecrease());
+            else if (foodDecreaseCoroutine != null) StopCoroutine(foodDecreaseCoroutine);
         }
         private IEnumerator FoodDecrease()
         {
@@ -71,11 +62,11 @@ namespace CPlayer
         }
         private void OnEnable()
         {
-            ResetFoodManagerClass();
             ActionManager.OnLoseHeart += ResetFood;
             ActionManager.OnHitFood += AddFoodValue;
             ActionManager.ToggleMoving += TurnOnFoodDecrease;
             ActionManager.StartNewGame += ResetFoodManagerClass;
+            ResetFoodManagerClass();
         }
         private void OnDisable()
         {

@@ -13,7 +13,7 @@ namespace CPlayer
         [SerializeField] private GameObject playerRender;
         [SerializeField] private Animator playerAnimator;
 
-        private bool godMode = false;
+        public bool godMode = false;
 
         private float moveSpeed;
         private float maxHorizontalValue = 3f;
@@ -28,7 +28,7 @@ namespace CPlayer
         private int posID = 1;
         private Vector3 playerPos;
         private Vector3 playerRenderPos;
-        [SerializeField] private Quaternion playerRenderRot;
+        private Quaternion playerRenderRot;
 
         private Coroutine jumpCoroutine, slideCoroutine, tempRemoveControl;
 

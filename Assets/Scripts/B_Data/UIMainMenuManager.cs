@@ -1,3 +1,4 @@
+using BData;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,8 @@ namespace FUI
 {
     public class UIMainMenuManager : MonoBehaviour
     {
+        [SerializeField] private GameSettingsManager gameSettingsManager;
+        [Space]
         [Header("Menu")]
         [SerializeField] private GameObject uiMenu;
         [SerializeField] private Button startButton;
@@ -20,7 +23,6 @@ namespace FUI
         [SerializeField] private Toggle preformanceModeToggle;
         [SerializeField] private Toggle godModeToggle;
         [SerializeField] private Button backButton;
-
         private void StartNewGame()
         {
             ActionManager.StartNewGame?.Invoke();
@@ -31,26 +33,17 @@ namespace FUI
         }
         private void SetEasyMode()
         {
-            ActionManager.OnSwitchDifficulty?.Invoke(true);
+            gameSettingsManager.easyModeOn = true;
             currentdifficultyText.text = ("(easy)");
         }
         private void SetHardMode()
         {
-            ActionManager.OnSwitchDifficulty?.Invoke(false);
+            gameSettingsManager.easyModeOn = false;
             currentdifficultyText.text = ("(hard)");
         }
-        private void ToggleSettingPanel()
-        {
-            uiSettings.SetActive(!uiSettings.activeSelf);
-        }
-        private void SetPerformanceMode(bool on)
-        {
-            ActionManager.OnTogglePerformanceMode?.Invoke(on);
-        }
-        private void SetGodMode(bool on)
-        {
-            ActionManager.OnToggleGodMode?.Invoke(on);
-        }
+        private void SetPerformanceMode(bool on) => gameSettingsManager.performanceModeOn = on;
+        private void SetGodMode(bool on) => gameSettingsManager.godModeOn = on;
+        private void ToggleSettingPanel() => uiSettings.SetActive(!uiSettings.activeSelf);
         private void OnEnable()
         {
             preformanceModeToggle.onValueChanged?.AddListener(SetPerformanceMode);

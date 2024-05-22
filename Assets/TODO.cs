@@ -5,11 +5,9 @@ TODO:
 UI:
   System:
 	make input button selection (it's working using new input system!!!)
-	make time to show like 00:00 but not 0:0
+	
   Visual:
   New Feature:
-	add prompts for control input and game mechanics (food related)
-	add prompts on how you can use jump and slide (that you can interupt them)
 	add prompt when food is low and when one heart is left
 	add visual feedback on food and heart icons (animations made with unity (size\rotation\color))
 		both play short animation when gain one, and another animation when lose one
@@ -21,16 +19,10 @@ CAMERA:
 	make it follow the player on horizontal axis (smooooooothly)
 
 VISUAL:
-	declutter backgrounds to improve both performance and visual
 	check out blocks food positioning 
 	add particles to the game:
 		ui particles: food\heart\setting new best score
 		inGame particles: footStep, jump, slide, hit, fall, obstacleDestroy, foodCollect
-
-
-SYSTEM:
-	implement godMode system
-	
 
 	NEED CODE CLEANING!!!
 
@@ -38,6 +30,14 @@ SYSTEM:
 
 	
 DONE:
+
+22.05
+	- implemented godMode system
+	- removed some action and changed them to simple links within systems
+		player and blocks get it's value still through ActionManager
+	- made time to show like 00:00 but not 0:0
+	- added prompt for controls and food at the begining of the run
+
 
 21.05
 - fixed gitIgnore file, as it didn't upload .meta files so previous uploads are completely fucked up...

@@ -1,3 +1,4 @@
+using BData;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,14 +17,34 @@ namespace FUI
         [SerializeField] private TextMeshProUGUI totalScoreText;
         [Space]
         [SerializeField] private TextMeshProUGUI bestScoreText;
-
+        [Space]
+        [SerializeField] private GameSettingsManager gameSettingsManager;
+        private bool godMode => gameSettingsManager.godModeOn;
         private void SetScoreText(int tFood, int tSec, int tMin, int tScore, int bScore)
         {
-            totalFoodText.text = ($"totalFood: {tFood}");
-            totalTimeText.text = ($"totalTime: {tMin}:{tSec}");
-            totalScoreText.text = ($"totalScore: {tScore}");
-
-            bestScoreText.text = ($"bestScore: {bScore}");
+            if (godMode)
+            {
+                totalFoodText.text = ("GodMode");
+                totalTimeText.text = ("GodMode");
+                totalScoreText.text = ("GodMode");
+                bestScoreText.text = ("GodMode");
+            }
+            else
+            {
+                totalFoodText.text = ($"{tFood}");
+                totalTimeText.text = ShowTime(tMin, tSec);
+                totalScoreText.text = ($"{tScore}");
+                bestScoreText.text = ($"{bScore}");
+            }
+        }
+        private string ShowTime(int min, int sec)
+        {
+            string minutes, seconds;
+            if (min < 10) minutes = ($"0{min}");
+            else minutes = min.ToString();
+            if (sec < 10) seconds = ($"0{sec}");
+            else seconds = sec.ToString();
+            return ($"{minutes}:{seconds}");
         }
         private void RestartScene()
         {

@@ -18,18 +18,23 @@ namespace BData
         [Space]
         [SerializeField] private int tScore;
         [SerializeField] private int bScore;
+        [SerializeField] private GameSettingsManager gameSettingsManager;
+        private bool godMode => gameSettingsManager.godModeOn;
 
         private void AddFoodScore()
         {
+            if (godMode) return;
             tFood++;
         }
         private void AddSecondsScore()
         {
+            if (godMode) return;
             tSeconds++;
             ManageTimeScore();
         }
         private void AddMinutesScore()
         {
+            if (godMode) return;
             tMinutes++;
         }
         private void ManageTimeScore()
@@ -43,6 +48,7 @@ namespace BData
         }
         private void ManageTotalScore()
         {
+            if (godMode) return;
             tScore = CalculateTotalScore(tFood, tSeconds, tMinutes);
             bScore = CalculateTotalScore(bFood, bSeconds, bMinutes);
             SetBestScore();

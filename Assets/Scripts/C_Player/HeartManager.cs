@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CPlayer
@@ -9,24 +7,25 @@ namespace CPlayer
         [SerializeField] private int heartStartCount = 3;
         private int heartCount;
         private bool deathIsTriggered;
+        [SerializeField] private PlayerController player;
 
-        private void Update()
-        {
-            ManageHeart();
-        }
+        private void Update() => ManageHeart();
         private void AddHeart()
         {
+            if (player.godMode) return;
             heartCount++;
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
         }
         private void RemoveHeart(float i, bool j)
         {
+            if (player.godMode) return;
             heartCount--;
             ActionManager.UIHeartValueChanged?.Invoke(heartCount);
             ActionManager.OnLoseHeart?.Invoke();
         }
         private void ManageHeart()
         {
+            if (player.godMode) return;
             if (heartCount <= 0 && !deathIsTriggered)
             {
                 ActionManager.OnDeath?.Invoke();
@@ -41,11 +40,11 @@ namespace CPlayer
         }
         private void OnEnable()
         {
-            ResetHeartManagerClass();
             ActionManager.OnFillFoodBar += AddHeart;
             ActionManager.OnStarving += RemoveHeart;
             ActionManager.OnHitObstacle += RemoveHeart;
             ActionManager.StartNewGame += ResetHeartManagerClass;
+            ResetHeartManagerClass();
         }
         private void OnDisable()
         {
@@ -53,7 +52,6 @@ namespace CPlayer
             ActionManager.OnStarving -= RemoveHeart;
             ActionManager.OnHitObstacle -= RemoveHeart;
             ActionManager.StartNewGame -= ResetHeartManagerClass;
-
         }
     }
 }
